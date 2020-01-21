@@ -28,12 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation planeTransformation1 = new Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation();
+            this.gViewer1 = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+            this.SuspendLayout();
+            // 
+            // gViewer1
+            // 
+            this.gViewer1.ArrowheadLength = 10D;
+            this.gViewer1.AsyncLayout = false;
+            this.gViewer1.AutoScroll = true;
+            this.gViewer1.BackwardEnabled = false;
+            this.gViewer1.BuildHitTree = true;
+            this.gViewer1.CurrentLayoutMethod = Microsoft.Msagl.GraphViewerGdi.LayoutMethod.UseSettingsOfTheGraph;
+            this.gViewer1.EdgeInsertButtonVisible = true;
+            this.gViewer1.FileName = "";
+            this.gViewer1.ForwardEnabled = false;
+            this.gViewer1.Graph = null;
+            this.gViewer1.InsertingEdge = false;
+            this.gViewer1.LayoutAlgorithmSettingsButtonVisible = true;
+            this.gViewer1.LayoutEditingEnabled = true;
+            this.gViewer1.Location = new System.Drawing.Point(74, 61);
+            this.gViewer1.LooseOffsetForRouting = 0.25D;
+            this.gViewer1.MouseHitDistance = 0.05D;
+            this.gViewer1.Name = "gViewer1";
+            this.gViewer1.NavigationVisible = true;
+            this.gViewer1.NeedToCalculateLayout = true;
+            this.gViewer1.OffsetForRelaxingInRouting = 0.6D;
+            this.gViewer1.PaddingForEdgeRouting = 8D;
+            this.gViewer1.PanButtonPressed = false;
+            this.gViewer1.SaveAsImageEnabled = true;
+            this.gViewer1.SaveAsMsaglEnabled = true;
+            this.gViewer1.SaveButtonVisible = true;
+            this.gViewer1.SaveGraphButtonVisible = true;
+            this.gViewer1.SaveInVectorFormatEnabled = true;
+            this.gViewer1.Size = new System.Drawing.Size(648, 343);
+            this.gViewer1.TabIndex = 0;
+            this.gViewer1.TightOffsetForRouting = 0.125D;
+            this.gViewer1.ToolBarIsVisible = true;
+            this.gViewer1.Transform = planeTransformation1;
+            this.gViewer1.UndoRedoButtonsVisible = true;
+            this.gViewer1.WindowZoomButtonPressed = false;
+            this.gViewer1.ZoomF = 1D;
+            this.gViewer1.ZoomWindowThreshold = 0.05D;
+            // 
+            // GraphTestForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.gViewer1);
+            this.Name = "GraphTestForm";
             this.Text = "GraphTestForm";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private Microsoft.Msagl.GraphViewerGdi.GViewer gViewer1;
     }
 }

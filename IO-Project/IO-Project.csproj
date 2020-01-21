@@ -171,6 +171,9 @@
     </Compile>
     <Compile Include="Utils\Extensions.cs" />
     <Compile Include="Utils\Util.cs" />
+    <EmbeddedResource Include="Graph\GraphTestForm.resx">
+      <DependentUpon>GraphTestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
