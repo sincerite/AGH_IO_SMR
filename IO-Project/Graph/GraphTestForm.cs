@@ -16,5 +16,10 @@ namespace IO_Project.Graph
         {
             InitializeComponent();
         }
+
+        private void gViewer1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
