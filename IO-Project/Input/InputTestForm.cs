@@ -121,6 +121,9 @@ namespace IO_Project.Input
         
         private void button3_Click(object sender, EventArgs e)
         {
+            inputFiles.Clear();
+            listBox1.Items.Clear();
+
             foreach (string filePath in Directory
                 .EnumerateFiles(folderBrowserDialog1.SelectedPath, "*.*", SearchOption.AllDirectories)
                 .Where(filePath => filePath.ToLower().EndsWith("cs")))
