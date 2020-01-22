@@ -137,6 +137,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Analysis\Models\BaseSourceElement.cs" />
+    <Compile Include="Core\Analysis\Models\SourceAnalysisModel.cs" />
+    <Compile Include="Core\Analysis\Models\SourceFile.cs" />
+    <Compile Include="Core\Analysis\Models\SourceMethod.cs" />
+    <Compile Include="Core\Analysis\Models\SourceNamespace.cs" />
+    <Compile Include="Core\Analysis\Models\SourceRelation.cs" />
     <Compile Include="Core\CoreTestForm.cs">
       <SubType>Form</SubType>
     </Compile>
