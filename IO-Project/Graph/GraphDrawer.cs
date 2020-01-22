@@ -33,11 +33,28 @@ namespace IO_Project.Graph
                 foreach (var method in file.Methods)
                 {
                     DrawingNode tmpNode = new DrawingNode(method.Name);
-                    tmpNode.LabelText = ;   //DODAC LABEL
+                    //tmpNode.LabelText = ;   //DODAC LABEL
                     graph2.AddNode(tmpNode);
                 }
             }
-
+            if (methodsToNamespaces)
+            {
+                foreach (var namesp in _mainModel.Namespaces)
+                {
+                    DrawingNode tmpNode = new DrawingNode(namesp.FullName);
+                    tmpNode.LabelText = namesp.Files.Count + "";
+                    graph2.AddNode(tmpNode);
+                }
+            }
+            if (methodsToFiles)
+            {
+                foreach (var file in _mainModel.Files)
+                {
+                    DrawingNode tmpNode = new DrawingNode(file.Filename);
+                    tmpNode.LabelText = file.Size + "";
+                    graph2.AddNode(tmpNode);
+                }
+            }
             foreach (var file in _mainModel.Files)
             {
                 foreach (var method in file.Methods)
@@ -50,11 +67,25 @@ namespace IO_Project.Graph
                         }
                     }
 
-                  
 
+                    if (methodsToNamespaces)
+                    {
+                        foreach (var namesp in _mainModel.Namespaces)
+                        {
+                            foreach (var rNamesp in namesp.NamespacesRelationsByMethodReferences)
+                            {
+                                graph2.AddEdge(method.Name, rNamesp.ReferencesCount + "", rNamesp.Reference.FullName);
+                            }
+                        }
+                    }
+                    if (methodsToFiles)
+                    {
+                        graph2.AddEdge(method.Name, null, file.Filename);
+                    }
 
                 }
             }
+            _gViewer.Graph = graph2;
         }
         public void GenerateFilesGraph()
         {
