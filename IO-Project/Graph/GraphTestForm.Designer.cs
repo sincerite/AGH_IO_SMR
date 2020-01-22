@@ -79,6 +79,7 @@
             this.Controls.Add(this.gViewer1);
             this.Name = "GraphTestForm";
             this.Text = "GraphTestForm";
+            this.Load += new System.EventHandler(this.GraphTestForm_Load);
             this.ResumeLayout(false);
 
         }
