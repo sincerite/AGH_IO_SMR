@@ -32,7 +32,19 @@ namespace IO_Project.Graph
         }
         public void GenerateFilesGraph()
         {
-            
+            graph1 = new Microsoft.Msagl.Drawing.Graph();
+            foreach (var file in _mainModel.Files)
+            {
+                DrawingNode tmpNode = new DrawingNode(file.Filename);
+                tmpNode.LabelText = file.Filename + " " + file.Size;
+                graph1.AddNode(tmpNode);
+                foreach (var rFile in file.FileRelationsByClassReferences)
+                {
+                    //DrawingEdge tmpEdge = new DrawingEdge(tmpNode.Id, rFile.ReferencesCount+"", rFile.Reference.Filename);
+                    graph1.AddEdge(tmpNode.Id, rFile.ReferencesCount + "", rFile.Reference.Filename);
+                }
+            }
+            _gViewer.Graph = graph1;
         }
     }
 }
