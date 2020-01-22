@@ -6,18 +6,20 @@ using System.Threading.Tasks;
 
 namespace IO_Project.Input
 {
-    class InputFile
+    public class InputFile
     {
-        public string filename;
-        public string path;
-        public string content;
-        public long size;
+        public string Filename;
+        public string AbsolutePath;
+        public string RelativePath;
+        public string Content;
+        public long Size;
 
         public override string ToString()
         {
-            return $"Filename: {filename} \n" +
-                   $"Full path: {path} \n" +
-                   $"Size: {size} \n";
+            return $"Filename: {Filename} \n" +
+                   $"Absolute path: {AbsolutePath} \n" +
+                   $"Relative path: {RelativePath} \n" +
+                   $"Size: {Size} \n";
         }
     }
 }
