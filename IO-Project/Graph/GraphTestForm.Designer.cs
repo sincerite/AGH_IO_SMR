@@ -47,8 +47,9 @@
             this.gViewer1.InsertingEdge = false;
             this.gViewer1.LayoutAlgorithmSettingsButtonVisible = true;
             this.gViewer1.LayoutEditingEnabled = true;
-            this.gViewer1.Location = new System.Drawing.Point(74, 61);
+            this.gViewer1.Location = new System.Drawing.Point(79, 23);
             this.gViewer1.LooseOffsetForRouting = 0.25D;
+            this.gViewer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gViewer1.MouseHitDistance = 0.05D;
             this.gViewer1.Name = "gViewer1";
             this.gViewer1.NavigationVisible = true;
@@ -61,7 +62,7 @@
             this.gViewer1.SaveButtonVisible = true;
             this.gViewer1.SaveGraphButtonVisible = true;
             this.gViewer1.SaveInVectorFormatEnabled = true;
-            this.gViewer1.Size = new System.Drawing.Size(648, 343);
+            this.gViewer1.Size = new System.Drawing.Size(864, 422);
             this.gViewer1.TabIndex = 0;
             this.gViewer1.TightOffsetForRouting = 0.125D;
             this.gViewer1.ToolBarIsVisible = true;
@@ -70,13 +71,15 @@
             this.gViewer1.WindowZoomButtonPressed = false;
             this.gViewer1.ZoomF = 1D;
             this.gViewer1.ZoomWindowThreshold = 0.05D;
+            this.gViewer1.Load += new System.EventHandler(this.gViewer1_Load);
             // 
             // GraphTestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.gViewer1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "GraphTestForm";
             this.Text = "GraphTestForm";
             this.ResumeLayout(false);
