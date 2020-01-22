@@ -28,7 +28,33 @@ namespace IO_Project.Graph
         }
         public void GenerateMethodsGraph()
         {
-            
+            foreach (var file in _mainModel.Files)
+            {
+                foreach (var method in file.Methods)
+                {
+                    DrawingNode tmpNode = new DrawingNode(method.Name);
+                    tmpNode.LabelText = ;   //DODAC LABEL
+                    graph2.AddNode(tmpNode);
+                }
+            }
+
+            foreach (var file in _mainModel.Files)
+            {
+                foreach (var method in file.Methods)
+                {
+                    if (methodsToMethods)
+                    {
+                        foreach (var rMethod in method.MethodRelationsByMethodInvocations)
+                        {
+                            graph2.AddEdge(method.Name, rMethod.ReferencesCount + "", rMethod.Reference.Name);
+                        }
+                    }
+
+                  
+
+
+                }
+            }
         }
         public void GenerateFilesGraph()
         {
