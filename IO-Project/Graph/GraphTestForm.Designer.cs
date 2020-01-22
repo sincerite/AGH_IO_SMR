@@ -82,6 +82,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "GraphTestForm";
             this.Text = "GraphTestForm";
+            this.Load += new System.EventHandler(this.GraphTestForm_Load);
             this.ResumeLayout(false);
 
         }
