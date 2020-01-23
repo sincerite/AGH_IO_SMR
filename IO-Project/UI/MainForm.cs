@@ -105,25 +105,25 @@ namespace IO_Project.UI
 
         private void chbFirstStory_CheckedChanged(object sender, EventArgs e)
         {
-                _graphDrawer.filesToFiles = true; 
+                _graphDrawer.filesToFiles = chbFirstStory.Checked; 
                 _graphDrawer.RefreshGraph();
         }
 
         private void chbSecondStory_CheckedChanged(object sender, EventArgs e)
         {
-                _graphDrawer.methodsToMethods = true;
+                _graphDrawer.methodsToMethods = chbSecondStory.Checked;
                 _graphDrawer.RefreshGraph();
         }
 
         private void chbThirdStory_CheckedChanged(object sender, EventArgs e)
         {
-                _graphDrawer.methodsToNamespaces = true;
+                _graphDrawer.methodsToNamespaces = chbThirdStory.Checked;
                 _graphDrawer.RefreshGraph();
         }
 
         private void chbSixthStory_CheckedChanged(object sender, EventArgs e)
         {
-                _graphDrawer.methodsToFiles = true;
+                _graphDrawer.methodsToFiles = chbSixthStory.Checked;
                 _graphDrawer.RefreshGraph();
         }
 
