@@ -10,6 +10,7 @@ using Microsoft.Msagl.Drawing;
 
 namespace IO_Project.Core.Analysis {
     public class SourceSemanticAnalyzer {
+        
         private Dictionary<string, SourceNamespace> _namespacesByName;
         private Dictionary<string, SourceFile> _filesByIdentifier;
         private Dictionary<string, SourceMethod> _methodsBySemanticName;
@@ -102,9 +103,11 @@ namespace IO_Project.Core.Analysis {
             var methods = FindMethods(root).Select(method => {
                 var semanticName = GetMethodDeclarationSymbolName(semantic, method);
                 var name = $"{method.ReturnType} {method.Identifier}{method.ParameterList}";
+                int compl = CalculateMethodCyclomaticComplexity(method);
 
                 return new SourceMethod {
-                    Name = name, ParentFile = sourceFile, SemanticName = semanticName
+                    Name = name, ParentFile = sourceFile, SemanticName = semanticName, 
+                    CyclomaticComplexity = compl
                 };
             }).ToList();
 
@@ -121,6 +124,31 @@ namespace IO_Project.Core.Analysis {
                 if (_classesByName.ContainsKey(sourceClass.Name)) continue;
                 _classesByName.Add(sourceClass.Name, sourceClass);
             }
+        }
+
+        private int CalculateMethodCyclomaticComplexity(MethodDeclarationSyntax method) {
+            int complexity = 1;
+            foreach (var syntax in method.Body.DescendantNodes()) {
+                if (syntax is ReturnStatementSyntax
+                    || syntax is IfStatementSyntax
+                    || syntax is ElseClauseSyntax
+                    || syntax is CaseSwitchLabelSyntax
+                    || syntax is DefaultSwitchLabelSyntax
+                    || syntax is ForStatementSyntax
+                    || syntax is ForEachStatementSyntax
+                    || syntax is WhileStatementSyntax
+                    || syntax is BreakStatementSyntax
+                    || syntax is ContinueStatementSyntax
+                    || syntax is CatchClauseSyntax
+                    || syntax is FinallyClauseSyntax
+                    || syntax is ThrowStatementSyntax
+                    || syntax is BinaryExpressionSyntax
+                    || syntax is ConditionalExpressionSyntax) {
+                    complexity++;
+                }
+            }
+
+            return complexity;
         }
 
         private void CompileProject() {

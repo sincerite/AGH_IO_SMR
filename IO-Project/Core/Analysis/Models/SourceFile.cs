@@ -10,6 +10,7 @@ namespace IO_Project.Core.Analysis.Models {
         public string Path;
         public string RelativePath;
         public long Size;
+        public bool ChangedSinceLastCommit;
 
         //analysis based:
         public SourceNamespace Namespace;
@@ -18,7 +19,6 @@ namespace IO_Project.Core.Analysis.Models {
             new Dictionary<string, SourceRelation<SourceFile>>(); //1st story
         
         public List<SourceMethod> Methods = new List<SourceMethod>(); //6th story
-
         
         
         public void AddFileRelation(SourceFile file) {
