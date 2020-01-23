@@ -7,16 +7,23 @@ namespace IO_Project.Core.Analysis.Models {
 
         public string Name; //should we take into account return and argument types?
         public SourceFile ParentFile;
-        public List<SourceRelation<SourceMethod>> MethodRelationsByMethodInvocations = 
-            new List<SourceRelation<SourceMethod>>(); // 2nd story
-        
+        public Dictionary<string, SourceRelation<SourceMethod>> MethodRelationsByMethodInvocations = 
+            new Dictionary<string, SourceRelation<SourceMethod>>(); // 2nd story
+
+        public string SemanticName;
         public int InvokedCount;
         public int CyclomaticComplexity;
         
-        public void AddMethodRelation(SourceMethod method, int referencesCount) {
-            MethodRelationsByMethodInvocations.Add(new SourceRelation<SourceMethod> {
-                Reference = method, ReferencesCount = referencesCount
-            });
+        public void AddMethodRelation(SourceMethod methodTo) {
+            var id = methodTo.UniqueIdentifier;
+            if (MethodRelationsByMethodInvocations.ContainsKey(id)) {
+                MethodRelationsByMethodInvocations[id].ReferencesCount++;
+            } else {
+                var relation = new SourceRelation<SourceMethod> {
+                    Reference = methodTo, ReferencesCount = 1
+                };
+                MethodRelationsByMethodInvocations.Add(id, relation);
+            }
         }
     }
 }
