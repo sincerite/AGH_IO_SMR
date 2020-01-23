@@ -105,46 +105,26 @@ namespace IO_Project.UI
 
         private void chbFirstStory_CheckedChanged(object sender, EventArgs e)
         {
-            if (chbFirstStory.Checked)
-            {
-                _graphDrawer.filesToFiles = true;
-                _graphDrawer.methodsToFiles = false;
-                chbSecondStory.Checked = false;
-                _graphDrawer.methodsToMethods = false;
-                chbThirdStory.Checked = false;
-                _graphDrawer.methodsToNamespaces = false;
-                chbSixthStory.Checked = false;
-            }
+                _graphDrawer.filesToFiles = true; 
+                _graphDrawer.RefreshGraph();
         }
 
         private void chbSecondStory_CheckedChanged(object sender, EventArgs e)
         {
-            if (chbSecondStory.Checked)
-            {
                 _graphDrawer.methodsToMethods = true;
-                _graphDrawer.filesToFiles = false;
-                chbFirstStory.Checked = false;
-            }
+                _graphDrawer.RefreshGraph();
         }
 
         private void chbThirdStory_CheckedChanged(object sender, EventArgs e)
         {
-            if (chbThirdStory.Checked)
-            {
                 _graphDrawer.methodsToNamespaces = true;
-                _graphDrawer.filesToFiles = false;
-                chbFirstStory.Checked = false;
-            }
+                _graphDrawer.RefreshGraph();
         }
 
         private void chbSixthStory_CheckedChanged(object sender, EventArgs e)
         {
-            if (chbSixthStory.Checked)
-            {
                 _graphDrawer.methodsToFiles = true;
-                _graphDrawer.filesToFiles = false;
-                chbFirstStory.Checked = false;
-            }
+                _graphDrawer.RefreshGraph();
         }
 
         private string ShowGitCurrentComit(string data)
