@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using IO_Project.Core;
 using IO_Project.Core.Analysis;
 using IO_Project.Graph;
+using IO_Project.Hash;
 using IO_Project.Input;
 using IO_Project.Tools;
 using Microsoft.Msagl.GraphViewerGdi;
@@ -21,6 +22,7 @@ namespace IO_Project.UI
         private GraphDrawer _graphDrawer;
         private SourceSemanticAnalyzer _analyzer;
         private List<InputFile> _inputFiles;
+        private HashCommits hashCommits;
 
         public MainForm()
         {
@@ -76,7 +78,7 @@ namespace IO_Project.UI
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    _inputFiles = form.InputFiles;
+                    _inputFiles = form.formController.InputFiles;
                 }
             }
             if (_inputFiles != null)
@@ -88,7 +90,20 @@ namespace IO_Project.UI
 
         private void OnInputFileLoaded()
         {
-            label4.Text = "Project loaded successfully!\n" + "Source files count: " + _inputFiles.Count.ToString() + "\n"+ ShowGitCurrentComit("bubu")+ "\n"+ShowGitRepository(true);
+            string commit = HashCommits.ExecuteGitBashCommand("C:/Users/Acer/source/repos/AGH_IO_SMR");
+            string status;
+            if (commit == null)
+            {
+                status = "Not found";
+                commit = "Unknown";
+            }
+            else
+            {
+                status = "Found";
+            }
+            label4.Text = "Project loaded successfully!\n" + "Source files count: " 
+                          + _inputFiles.Count.ToString() + "\n" + "Git current commit: " 
+                          + commit + "\n" + "Git repository: " + status;
         }
 
         private void AnalyzeFiles()
@@ -125,23 +140,6 @@ namespace IO_Project.UI
         {
                 _graphDrawer.methodsToFiles = chbSixthStory.Checked;
                 _graphDrawer.RefreshGraph();
-        }
-
-        private string ShowGitCurrentComit(string data)
-        {
-            return "Git current commit: " + data;
-        }
-        private string ShowGitRepository(bool data)
-        {
-            string status;
-            if (data)
-            {
-                status = "Found";
-            }
-            else status = "Not found";
-
-
-            return "Git repository: " + status;
         }
             
 
