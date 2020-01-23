@@ -28,7 +28,7 @@ namespace IO_Project.Graph {
         }
 
         public void RefreshGraph() {
-            DrawGraph();
+            if(_mainModel != null) DrawGraph();
         }
 
         private void DrawGraph() {
