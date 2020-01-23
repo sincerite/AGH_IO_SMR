@@ -207,6 +207,7 @@ namespace IO_Project.Core.Analysis {
 
         private void InsertRelationsBetweenMethods(SourceMethod methodFrom, SourceMethod methodTo) {
             methodFrom.AddMethodRelation(methodTo);
+            methodTo.InvokedCount++;
             var nsFrom = methodFrom.ParentFile.Namespace;
             var nsTo = methodTo.ParentFile.Namespace;
             if (nsFrom != nsTo) {
