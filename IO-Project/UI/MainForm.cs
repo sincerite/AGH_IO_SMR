@@ -113,14 +113,19 @@ namespace IO_Project.UI
         private void AnalyzeFiles()
         {
             if (_inputFiles == null) return;
-            var changedFilesPaths = GraphChange.GraphChanges(projectRoot);
-            var result = _analyzer.Analyze(_inputFiles, changedFilesPaths);
-            _graphDrawer.filesToFiles = chbFirstStory.Checked;
-            _graphDrawer.methodsToMethods = chbSecondStory.Checked;
-            _graphDrawer.methodsToNamespaces = chbThirdStory.Checked;
-            _graphDrawer.methodsToFiles = chbSixthStory.Checked;
+            try {
+                var changedFilesPaths = GraphChange.GraphChanges(projectRoot);
+                var result = _analyzer.Analyze(_inputFiles, changedFilesPaths);
+                _graphDrawer.filesToFiles = chbFirstStory.Checked;
+                _graphDrawer.methodsToMethods = chbSecondStory.Checked;
+                _graphDrawer.methodsToNamespaces = chbThirdStory.Checked;
+                _graphDrawer.methodsToFiles = chbSixthStory.Checked;
 
-            _graphDrawer.GenerateGraphForSourceAnalysis(result);
+                _graphDrawer.GenerateGraphForSourceAnalysis(result);
+            } catch (Exception e) {
+                MessageBox.Show("Parsing error");
+            }
+            
         }
 
         private void chbFirstStory_CheckedChanged(object sender, EventArgs e)
