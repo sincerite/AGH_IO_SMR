@@ -55,6 +55,11 @@ namespace IO_Project.Input
             {
                 AddNewInputFile(filePath);
             }
+
+            if (formController.InputFiles.Count > 0)
+            {
+                btAcceptFiles.Enabled = true;
+            }
         }
 
         private void ClearForm()

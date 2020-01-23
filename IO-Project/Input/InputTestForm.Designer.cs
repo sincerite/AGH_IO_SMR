@@ -127,6 +127,7 @@
             // 
             // btAcceptFiles
             // 
+            this.btAcceptFiles.Enabled = false;
             this.btAcceptFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btAcceptFiles.Location = new System.Drawing.Point(668, 401);
             this.btAcceptFiles.Name = "btAcceptFiles";
