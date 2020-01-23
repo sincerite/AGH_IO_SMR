@@ -30,7 +30,7 @@ namespace IO_Project.Hash
             process.Close();
 
             string[] pathToChanges = output.Split('\n');
-            List<string> lst = pathToChanges.OfType<string>().ToList();
+            var lst = pathToChanges.ToList();
 
             return lst;
         }
