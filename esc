@@ -1,0 +1,332 @@
+[33mcommit 5078d9c111a21d2872f8408aabfb583f9111a01c[m[33m ([m[1;36mHEAD -> [m[1;32mfeat-gui[m[33m, [m[1;31morigin/feat-gui[m[33m, [m[1;31morigin/feat-graph[m[33m, [m[1;31morigin/dev[m[33m)[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Thu Jan 23 13:53:18 2020 +0100
+
+    [Graph] Small fix in graph drawing
+
+ IO-Project/Graph/GraphDrawer.cs | 87 [32m+++++++++++++++++[m[31m------------------------[m
+ 1 file changed, 36 insertions(+), 51 deletions(-)
+
+[33mcommit 9a3683439631f5586104f3987737e055535d68eb[m
+Merge: 79b3442 b0fe212
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Thu Jan 23 13:51:40 2020 +0100
+
+    Merge branch 'feat-graph' into dev
+    
+    # Conflicts:
+    #       IO-Project/Graph/GraphDrawer.cs
+
+[33mcommit 79b3442676c339cbf1e4c18e650afb5c5e2f6bf5[m[33m ([m[1;31morigin/feat-core[m[33m)[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Thu Jan 23 13:48:57 2020 +0100
+
+    [GUI] Connect MainForm with Input UI and Graph drawing
+
+ IO-Project/Graph/GraphDrawer.cs            |  14 [32m+[m[31m--[m
+ IO-Project/Graph/GraphTestForm.Designer.cs |  10 [32m+[m[31m-[m
+ IO-Project/Input/InputTestForm.Designer.cs |  17 [32m++[m[31m-[m
+ IO-Project/Input/InputTestForm.cs          |  33 [32m+++[m[31m--[m
+ IO-Project/Tests/DataForTests.cs           |   5 [32m+[m[31m-[m
+ IO-Project/UI/MainForm.Designer.cs         | 190 [32m++++++++++++++[m[31m---------------[m
+ IO-Project/UI/MainForm.cs                  |  62 [32m++++++[m[31m----[m
+ 7 files changed, 178 insertions(+), 153 deletions(-)
+
+[33mcommit 76b773fba0996c8ee20ece9d8bc94a9551eb0c70[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Thu Jan 23 13:31:43 2020 +0100
+
+    [Core] Add source files relations inserting
+
+ .../Core/Analysis/Models/SourceAnalysisModel.cs    |   4 [32m+[m[31m-[m
+ IO-Project/Core/Analysis/Models/SourceFile.cs      |  18 [32m++[m[31m--[m
+ IO-Project/Core/Analysis/SourceSemanticAnalyzer.cs | 115 [32m+++++++++++++[m[31m--------[m
+ 3 files changed, 88 insertions(+), 49 deletions(-)
+
+[33mcommit 14d8f777083e8450c096e126dd0bd6fc47ad2ca6[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Thu Jan 23 11:55:29 2020 +0100
+
+    [Core] Add source symbols aggregation
+
+ .../Core/Analysis/Models/BaseSourceElement.cs      |  2 [32m+[m
+ IO-Project/Core/Analysis/Models/SourceClass.cs     |  5 [32m+[m[31m-[m
+ IO-Project/Core/Analysis/Models/SourceFile.cs      | 17 [32m++++++[m[31m-[m
+ IO-Project/Core/Analysis/Models/SourceMethod.cs    |  3 [32m++[m
+ IO-Project/Core/Analysis/Models/SourceNamespace.cs |  5 [32m++[m
+ IO-Project/Core/Analysis/SourceSemanticAnalyzer.cs | 57 [32m++++++++++++++[m[31m--------[m
+ 6 files changed, 68 insertions(+), 21 deletions(-)
+
+[33mcommit b0fe212d086217fb0e30fd198d14bdee54a09ccd[m
+Author: Dominika Duda <duda.dominika97@gmail.com>
+Date:   Thu Jan 23 10:16:13 2020 +0100
+
+    [Graph] Fix implementation of GenerateFilesGraph()
+
+ IO-Project/Graph/GraphDrawer.cs | 13 [32m+++++++++[m[31m----[m
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+[33mcommit e374d509defa734a6a725859bdc9e876e763e3d3[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Thu Jan 23 03:03:20 2020 +0100
+
+    [Core] Add source initial parsing & semantic analysis
+
+ IO-Project/Core/Analysis/SourceSemanticAnalyzer.cs | 77 [32m++++++++++++++++++++++[m
+ 1 file changed, 77 insertions(+)
+
+[33mcommit 5a17235a987f764ffc906c5c7e2a0996d66e4299[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Thu Jan 23 02:18:14 2020 +0100
+
+    [Core] Improve source models structure
+
+ IO-Project/Core/Analysis/Models/SourceClass.cs     |  6 [32m++++++[m
+ IO-Project/Core/Analysis/Models/SourceFile.cs      | 13 [32m+++++++++++[m[31m--[m
+ IO-Project/Core/Analysis/Models/SourceMethod.cs    | 11 [32m++++++++++[m[31m-[m
+ IO-Project/Core/Analysis/Models/SourceNamespace.cs | 11 [32m+++++++++[m[31m--[m
+ IO-Project/IO-Project.csproj                       |  2 [32m++[m
+ IO-Project/Tests/DataForTests.cs                   |  7 [32m+++++++[m
+ 6 files changed, 45 insertions(+), 5 deletions(-)
+
+[33mcommit 378eb4a63b74d030d822aa394bd1d8c712c092d3[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Thu Jan 23 00:17:37 2020 +0100
+
+    [Project] Add missing include entry
+
+ IO-Project/IO-Project.csproj | 1 [32m+[m
+ 1 file changed, 1 insertion(+)
+
+[33mcommit 560d322fc0ad67cdb2943562f2e04a96861f598c[m
+Merge: f5e6082 29d3ab2
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Thu Jan 23 00:12:27 2020 +0100
+
+    Merge remote-tracking branch 'origin/feat-gui' into dev
+
+[33mcommit 29d3ab2ffcd144bec4f6ec8983a33fde966632a4[m
+Author: Aleksandra Ćwikła <acwikla.13@gmail.com>
+Date:   Thu Jan 23 00:09:44 2020 +0100
+
+    [Test] Add mock data
+
+ IO-Project/Tests/DataForTests.cs | 49 [32m++++++++++++++++++++++++++++++++++++++++[m
+ 1 file changed, 49 insertions(+)
+
+[33mcommit f5e608277d32f7069cd738bbb76999f05ec70102[m
+Merge: 1f1a01f 53dace1
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Thu Jan 23 00:05:56 2020 +0100
+
+    Merge branch 'feat-graph' into dev
+
+[33mcommit 53dace17d2d7045e400334fb0ee0738e7cd79821[m
+Author: Mikołaj <50640333+Ciurla@users.noreply.github.com>
+Date:   Wed Jan 22 23:58:34 2020 +0100
+
+    [Graph] Add further implementation of GenerateMethodsGraph method
+
+ IO-Project/Graph/GraphDrawer.cs | 37 [32m++++++++++++++++++++++++++++++++++[m[31m---[m
+ 1 file changed, 34 insertions(+), 3 deletions(-)
+
+[33mcommit 6970c11c9e058ffc41794f4b704a11bdb6351889[m
+Author: Dominika Duda <duda.dominika97@gmail.com>
+Date:   Wed Jan 22 23:53:12 2020 +0100
+
+    [Graph] Implement part of GenerateMethodGraph using mock data
+
+ IO-Project/Graph/GraphDrawer.cs | 28 [32m+++++++++++++++++++++++++++[m[31m-[m
+ 1 file changed, 27 insertions(+), 1 deletion(-)
+
+[33mcommit f72bdd5edf7d2dad3c27fee08137f701c5140db0[m
+Author: Dominika Duda <duda.dominika97@gmail.com>
+Date:   Wed Jan 22 23:50:11 2020 +0100
+
+    [Graph] Add further implementation of graph drawing
+
+ IO-Project/Graph/GraphDrawer.cs | 14 [32m+++++++++++++[m[31m-[m
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+[33mcommit b3d21771de6106cf34f7a24b9ba2b7612d0a9c0a[m
+Author: Mikołaj <50640333+Ciurla@users.noreply.github.com>
+Date:   Wed Jan 22 22:47:36 2020 +0100
+
+    [Graph] Add variables and Methods' initialization to GraphDrawer
+
+ IO-Project/Graph/GraphDrawer.cs            | 26 [32m+++++++++++++++++++[m[31m-------[m
+ IO-Project/Graph/GraphTestForm.Designer.cs |  1 [32m+[m
+ IO-Project/Graph/GraphTestForm.cs          | 20 [32m++++++++++++++++++++[m
+ 3 files changed, 40 insertions(+), 7 deletions(-)
+
+[33mcommit 1f1a01fc54233dc32b94b7fcf64f6e38e11e927f[m
+Merge: cfa1e56 d6720d3
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Wed Jan 22 21:15:16 2020 +0100
+
+    Merge remote-tracking branch 'origin/feat-input' into dev
+
+[33mcommit cfa1e56a689065955df9554a7338f8cd61732160[m
+Merge: 96c107c eb894f2
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Wed Jan 22 21:15:03 2020 +0100
+
+    Merge branch 'feat-graph2' into dev
+
+[33mcommit 96c107c5c10cc5f2faea83f08f47c97986a83f5f[m
+Merge: 71c6d5d 6cbf1db
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Wed Jan 22 21:12:34 2020 +0100
+
+    Merge remote-tracking branch 'origin/feat-gui' into dev
+
+[33mcommit d6720d37e19d0dad69b307e6e3263df6008aa70a[m[33m ([m[1;31morigin/feat-input[m[33m)[m
+Author: Konrad Broda <konrad@weastronauts.pl>
+Date:   Wed Jan 22 19:26:30 2020 +0100
+
+    Fix list duplicates issues
+
+ IO-Project/Input/InputTestForm.cs | 3 [32m+++[m
+ 1 file changed, 3 insertions(+)
+
+[33mcommit 8cb5b983a3e6f6570c96b07c99b2cf2457c63bdb[m
+Author: Konrad Broda <konrad@weastronauts.pl>
+Date:   Wed Jan 22 19:15:45 2020 +0100
+
+    Add input from folder, set root path and determine root path according to open files
+
+ IO-Project/Input/InputFile.cs              |  18 [32m++[m[31m---[m
+ IO-Project/Input/InputTestForm.Designer.cs |  80 [32m+++++++++++++++++++[m[31m--[m
+ IO-Project/Input/InputTestForm.cs          | 112 [32m++++++++++++++++++++++++++[m[31m---[m
+ IO-Project/Input/InputTestForm.resx        |   3 [32m+[m
+ 4 files changed, 190 insertions(+), 23 deletions(-)
+
+[33mcommit 6cbf1db6b1a06373accdf68aad2732a594c59ff9[m
+Author: mateusz <biskup.mateusz1997@wp.pl>
+Date:   Wed Jan 22 18:28:21 2020 +0100
+
+    [GUI] Add initialization GUI for project
+
+ IO-Project/Graph/GraphTestForm.Designer.cs |  11 [32m+[m[31m-[m
+ IO-Project/Graph/GraphTestForm.cs          |   5 [32m+[m
+ IO-Project/UI/MainForm.Designer.cs         | 277 [32m+++++++++++++++++++++++[m[31m------[m
+ IO-Project/UI/MainForm.cs                  |  15 [32m++[m
+ 4 files changed, 250 insertions(+), 58 deletions(-)
+
+[33mcommit eb894f222a6dd7ec3e4c849b1f17617cf5b77039[m[33m ([m[1;31morigin/feat-graph2[m[33m)[m
+Author: Dominika Duda <duda.dominika97@gmail.com>
+Date:   Wed Jan 22 17:42:10 2020 +0100
+
+    [Graph] Add GraphDrawer
+
+ IO-Project/Graph/GraphDrawer.cs | 26 [32m++++++++++++++++++++++++++[m
+ IO-Project/IO-Project.csproj    |  5 [32m++++[m[31m-[m
+ 2 files changed, 30 insertions(+), 1 deletion(-)
+
+[33mcommit 71c6d5d990756422d7c66b8741a9c727fd215ed7[m
+Merge: 69b31e7 ae3f44e
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Wed Jan 22 16:51:16 2020 +0100
+
+    Merge branch 'dev' into feat-core
+
+[33mcommit 69b31e7a5f05337598720a87124227793ddf147f[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Wed Jan 22 16:49:06 2020 +0100
+
+    [Core] Add missing fields to core models
+
+ IO-Project/Core/Analysis/Models/SourceAnalysisModel.cs | 6 [32m+++++[m[31m-[m
+ IO-Project/Core/Analysis/Models/SourceMethod.cs        | 1 [32m+[m
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+[33mcommit f98b57b4cd2b2e2e38af53aa8bf56fa9a13dc18b[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Wed Jan 22 16:45:56 2020 +0100
+
+    [Core] Add code-analysis related models
+
+ IO-Project/Core/Analysis/Models/BaseSourceElement.cs   |  5 [32m+++++[m
+ IO-Project/Core/Analysis/Models/SourceAnalysisModel.cs |  5 [32m+++++[m
+ IO-Project/Core/Analysis/Models/SourceFile.cs          | 15 [32m+++++++++++++++[m
+ IO-Project/Core/Analysis/Models/SourceMethod.cs        |  9 [32m+++++++++[m
+ IO-Project/Core/Analysis/Models/SourceNamespace.cs     |  9 [32m+++++++++[m
+ IO-Project/Core/Analysis/Models/SourceRelation.cs      |  6 [32m++++++[m
+ IO-Project/IO-Project.csproj                           |  6 [32m++++++[m
+ 7 files changed, 55 insertions(+)
+
+[33mcommit ae3f44eb86fac1fc1ec21ca0a23db07d54c15a57[m
+Author: Konrad Broda <konrad@weastronauts.pl>
+Date:   Tue Jan 21 21:42:25 2020 +0100
+
+    Add file open and display properties tool
+
+ IO-Project/App.config                      |  46 [32m++++++++++[m[31m-[m
+ IO-Project/IO-Project.csproj               |  71 [32m++++++++[m[31m---------[m
+ IO-Project/Input/InputFile.cs              |  23 [32m++++++[m
+ IO-Project/Input/InputTestForm.Designer.cs |  54 [32m++++++++++++[m[31m-[m
+ IO-Project/Input/InputTestForm.cs          |  39 [32m+++++++++[m
+ IO-Project/Input/InputTestForm.resx        | 123 [32m+++++++++++++++++++++++++++++[m
+ IO-Project/packages.config                 |  26 [32m+++[m[31m---[m
+ 7 files changed, 329 insertions(+), 53 deletions(-)
+
+[33mcommit dd4708f906d1623bc7501a88f19bfb804d30d81b[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/feat-tools[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Tue Jan 21 20:16:59 2020 +0100
+
+    [Graph] Add graph viewer control
+
+ IO-Project/Graph/GraphTestForm.Designer.cs |  53 [32m++++++++++++[m[31m-[m
+ IO-Project/Graph/GraphTestForm.resx        | 120 [32m+++++++++++++++++++++++++++++[m
+ IO-Project/IO-Project.csproj               |   3 [32m+[m
+ 3 files changed, 175 insertions(+), 1 deletion(-)
+
+[33mcommit ea3e85fa7392380f4753da3b92a97f0e60aefd9f[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Tue Jan 21 20:11:35 2020 +0100
+
+    [Project] Add Roslyn and MSAGL dependencies
+
+ IO-Project/IO-Project.csproj | 102 [32m+++++++++++++++++++++++++++++++++++++++++++[m
+ IO-Project/packages.config   |  28 [32m++++++++++++[m
+ 2 files changed, 130 insertions(+)
+
+[33mcommit cc093b3d256086ec09409825ac1926b02b0715de[m
+Author: Michał Czopek <michal3377@gmail.com>
+Date:   Tue Jan 21 20:05:32 2020 +0100
+
+    Initial commit. :tada: Setup project structure, add test forms
+
+ .gitignore                                  | 620 [32m++++++++++++++++++++++++++++[m
+ IO-Project.sln                              |  25 [32m++[m
+ IO-Project/App.config                       |   6 [32m+[m
+ IO-Project/Core/CoreTestForm.Designer.cs    |  39 [32m++[m
+ IO-Project/Core/CoreTestForm.cs             |  20 [32m+[m
+ IO-Project/Graph/GraphTestForm.Designer.cs  |  39 [32m++[m
+ IO-Project/Graph/GraphTestForm.cs           |  20 [32m+[m
+ IO-Project/IO-Project.csproj                | 115 [32m++++++[m
+ IO-Project/Input/InputTestForm.Designer.cs  |  39 [32m++[m
+ IO-Project/Input/InputTestForm.cs           |  20 [32m+[m
+ IO-Project/Program.cs                       |  23 [32m++[m
+ IO-Project/Properties/AssemblyInfo.cs       |  36 [32m++[m
+ IO-Project/Properties/Resources.Designer.cs |  66 [32m+++[m
+ IO-Project/Properties/Resources.resx        | 117 [32m++++++[m
+ IO-Project/Properties/Settings.Designer.cs  |  28 [32m++[m
+ IO-Project/Properties/Settings.settings     |   7 [32m+[m
+ IO-Project/Tools/ToolsTestForm.Designer.cs  |  39 [32m++[m
+ IO-Project/Tools/ToolsTestForm.cs           |  20 [32m+[m
+ IO-Project/UI/MainForm.Designer.cs          | 140 [32m+++++++[m
+ IO-Project/UI/MainForm.cs                   |  49 [32m+++[m
+ IO-Project/UI/MainForm.resx                 | 120 [32m++++++[m
+ IO-Project/Utils/Extensions.cs              |  12 [32m+[m
+ IO-Project/Utils/Util.cs                    |  12 [32m+[m
+ 23 files changed, 1612 insertions(+)
+
+[33mcommit 4a0e345b705dbeee6b36abacdfbd5a6dedd01789[m
+Author: Sincerite <sine@student.agh.edu.pl>
+Date:   Thu Nov 21 10:11:04 2019 -0800
+
+    Create README.md
+
+ README.md | 10 [32m++++++++++[m
+ 1 file changed, 10 insertions(+)
