@@ -19,7 +19,7 @@ namespace IO_Project.Input
             return $"Filename: {Filename} \n" +
                    $"Absolute path: {AbsolutePath} \n" +
                    $"Relative path: {RelativePath} \n" +
-                   $"Size: {Size} \n";
+                   $"Size: {Size} bytes \n";
         }
     }
 }
