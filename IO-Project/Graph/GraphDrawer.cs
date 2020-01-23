@@ -93,12 +93,17 @@ namespace IO_Project.Graph
             foreach (var file in _mainModel.Files.Values)
             {
                 DrawingNode tmpNode = new DrawingNode(file.Filename);
-                tmpNode.LabelText = file.Filename + " " + file.Size;
+                tmpNode.LabelText = file.Filename + "\n" + file.Size;
                 graph1.AddNode(tmpNode);
-                foreach (var rFile in file.FileRelationsByClassReferences.Values)
+            }
+            foreach (var file in _mainModel.Files)
+            {
+                if (file.FileRelationsByClassReferences != null)
                 {
-                    //DrawingEdge tmpEdge = new DrawingEdge(tmpNode.Id, rFile.ReferencesCount+"", rFile.Reference.Filename);
-                    graph1.AddEdge(tmpNode.Id, rFile.ReferencesCount + "", rFile.Reference.Filename);
+                    foreach (var rFile in file.FileRelationsByClassReferences)
+                    {
+                        graph1.AddEdge(file.Filename, rFile.ReferencesCount + "", rFile.Reference.Filename);
+                    }
                 }
             }
             _gViewer.Graph = graph1;
