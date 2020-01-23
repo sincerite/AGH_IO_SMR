@@ -92,14 +92,14 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(405, 12);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(383, 20);
+            this.textBox1.Size = new System.Drawing.Size(333, 20);
             this.textBox1.TabIndex = 4;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(521, 38);
+            this.button3.Location = new System.Drawing.Point(744, 12);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(105, 20);
+            this.button3.Size = new System.Drawing.Size(44, 20);
             this.button3.TabIndex = 5;
             this.button3.Text = "Set as root path";
             this.button3.UseVisualStyleBackColor = true;
