@@ -12,6 +12,7 @@ using IO_Project.Core.Analysis;
 using IO_Project.Graph;
 using IO_Project.Input;
 using IO_Project.Tools;
+using Microsoft.Msagl.GraphViewerGdi;
 
 namespace IO_Project.UI {
     public partial class MainForm : Form {
@@ -21,6 +22,7 @@ namespace IO_Project.UI {
 
         public MainForm() {
             InitializeComponent();
+            gViewer1.CurrentLayoutMethod = LayoutMethod.MDS;
             _graphDrawer = new GraphDrawer(gViewer1);
             _analyzer = new SourceSemanticAnalyzer();
         }
@@ -71,7 +73,11 @@ namespace IO_Project.UI {
         private void AnalyzeFiles() {
             if(_inputFiles == null) return;
             var result = _analyzer.Analyze(_inputFiles);
-            _graphDrawer.filesToFiles = true; //todo: checkboxy!
+            _graphDrawer.filesToFiles = chbFirstStory.Checked;
+            _graphDrawer.methodsToMethods = chbSecondStory.Checked;
+            _graphDrawer.methodsToNamespaces = chbThirdStory.Checked;
+            _graphDrawer.methodsToFiles = chbSixthStory.Checked;
+
             _graphDrawer.GenerateGraphForSourceAnalysis(result);
         }
     }

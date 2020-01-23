@@ -15,7 +15,7 @@ namespace IO_Project.Graph {
         private GViewer _gViewer;
         private SourceAnalysisModel _mainModel;
         public bool methodsToMethods, methodsToNamespaces, methodsToFiles, filesToFiles;
-        private Microsoft.Msagl.Drawing.Graph graph1, graph2, mergedGraph;
+        private Microsoft.Msagl.Drawing.Graph graph;
         private Random rnd = new Random();
 
         public GraphDrawer(GViewer gViewer) {
@@ -24,16 +24,21 @@ namespace IO_Project.Graph {
 
         public void GenerateGraphForSourceAnalysis(SourceAnalysisModel model) {
             _mainModel = model;
-            graph1 = null;
-            graph2 = null;
-            mergedGraph = null;
+            DrawGraph();
+        }
+
+        public void RefreshGraph() {
+            DrawGraph();
+        }
+
+        private void DrawGraph() {
+            graph = new Microsoft.Msagl.Drawing.Graph();
             if (filesToFiles) GenerateFilesGraph();
             if (methodsToMethods || methodsToNamespaces || methodsToFiles) GenerateMethodsGraph();
             showGraph();
         }
 
-        public void GenerateMethodsGraph() {
-            graph2 = new Microsoft.Msagl.Drawing.Graph();
+        private void GenerateMethodsGraph() {
             foreach (var file in _mainModel.Files.Values) {
                 Color tmpColor=Color.White;
                 if (methodsToFiles)
@@ -44,7 +49,7 @@ namespace IO_Project.Graph {
                     Color newColor = generateColor(tmpNode.Attr.Color);
                     tmpColor = newColor;
                     tmpNode.Attr.FillColor = tmpColor;
-                    graph2.AddNode(tmpNode);
+                    graph.AddNode(tmpNode);
                 }
                 foreach (var method in file.Methods)
                 {
@@ -52,7 +57,7 @@ namespace IO_Project.Graph {
                     tmpNode.LabelText = method.Name;
                     tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Circle;
                     tmpNode.Attr.FillColor = tmpColor;
-                    graph2.AddNode(tmpNode);
+                    graph.AddNode(tmpNode);
                 }
 
             }
@@ -64,7 +69,7 @@ namespace IO_Project.Graph {
                     tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
                     Color newColor = generateColor(tmpNode.Attr.Color);
                     tmpNode.Attr.FillColor = newColor;
-                    graph2.AddNode(tmpNode);
+                    graph.AddNode(tmpNode);
                 }
             }
 
@@ -73,9 +78,9 @@ namespace IO_Project.Graph {
                 {
                     if (methodsToMethods)
                     {
-                        foreach (var rMethod in method.MethodRelationsByMethodInvocations)
+                        foreach (var rMethod in method.MethodRelationsByMethodInvocations.Values)
                         {
-                            graph2.AddEdge(method.Name, rMethod.ReferencesCount + "", rMethod.Reference.Name);
+                            graph.AddEdge(method.Name, rMethod.ReferencesCount + "", rMethod.Reference.Name);
                         }
                     }
 
@@ -84,9 +89,9 @@ namespace IO_Project.Graph {
                     {
                         foreach (var namesp in _mainModel.Namespaces.Values)
                         {
-                            foreach (var rNamesp in namesp.NamespacesRelationsByMethodReferences)
+                            foreach (var rNamesp in namesp.NamespacesRelationsByMethodReferences.Values)
                             {
-                                graph2.AddEdge(method.Name, rNamesp.ReferencesCount + "",
+                                graph.AddEdge(method.Name, rNamesp.ReferencesCount + "",
                                 rNamesp.Reference.FullName);
                             }
                         }
@@ -94,59 +99,47 @@ namespace IO_Project.Graph {
 
                     if (methodsToFiles)
                     {
-                        graph2.AddEdge(method.Name, null, file.Filename);
+                        graph.AddEdge(method.Name, null, file.Filename);
                     }
                 }
             }
         }
 
-        public void GenerateFilesGraph() {
-            graph1 = new Microsoft.Msagl.Drawing.Graph();
+        private void GenerateFilesGraph() {
             foreach (var file in _mainModel.Files.Values) {
                 DrawingNode tmpNode = new DrawingNode(file.Filename);
                 tmpNode.LabelText = file.Filename + "\n" + file.Size;
                 tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Box;
                 Color newColor = generateColor(tmpNode.Attr.Color);
                 tmpNode.Attr.FillColor = newColor;
-                graph1.AddNode(tmpNode);
+                graph.AddNode(tmpNode);
             }
 
             foreach (var file in _mainModel.Files.Values) {
                     foreach (var rFile in file.FileRelationsByClassReferences.Values)
                     {
-                        graph1.AddEdge(file.Filename, rFile.ReferencesCount + "", rFile.Reference.Filename);
+                        graph.AddEdge(file.Filename, rFile.ReferencesCount + "", rFile.Reference.Filename);
                     }
             }
         }
 
-        public void MergeGraphs(Microsoft.Msagl.Drawing.Graph g1, Microsoft.Msagl.Drawing.Graph g2)
+        /*public void MergeGraphs(Microsoft.Msagl.Drawing.Graph g1, Microsoft.Msagl.Drawing.Graph g2)
         {
+            graph = new Microsoft.Msagl.Drawing.Graph();
             foreach (var node1 in g1.Nodes)
             {
-                mergedGraph.AddNode(node1);
+                graph.AddNode(node1);
             }
             foreach (var node2 in g2.Nodes)
             {
-                mergedGraph.AddNode(node2);
+                graph.AddNode(node2);
             }
-        }
+        }*/
 
-        public void showGraph()
-        {
-            if (graph1 != null && graph2 != null)
-            {
-                MergeGraphs(graph1,graph2);
-                _gViewer.Graph = mergedGraph;
-            }
-            else if (graph1 != null && graph2 == null)
-            {
-                _gViewer.Graph = graph1;
-            }
-            else if(graph1 == null && graph2 != null)
-            {
-                _gViewer.Graph = graph2;
-            }
+        private void showGraph() {
+            _gViewer.Graph = graph;
         }
+        
         private Color generateColor(Color colorNode)
         {
             int beg = 100;
