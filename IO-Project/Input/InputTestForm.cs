@@ -32,7 +32,7 @@ namespace IO_Project.Input
             newInputFile.AbsolutePath = path;
             newInputFile.RelativePath = Util.GetRelativePath(path, formController.rootPath);
             newInputFile.Content = File.ReadAllText(path);
-            newInputFile.Size = 0;
+            newInputFile.Size = new System.IO.FileInfo(path).Length;
 
             formController.InputFiles.Add(newInputFile);
             lbInputFiles.Items.Add(newInputFile.RelativePath);
