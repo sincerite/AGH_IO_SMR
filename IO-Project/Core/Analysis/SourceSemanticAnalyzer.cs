@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using IO_Project.Core.Analysis.Models;
@@ -9,6 +10,7 @@ using Microsoft.Msagl.Drawing;
 
 namespace IO_Project.Core.Analysis {
     public class SourceSemanticAnalyzer {
+        
         private Dictionary<string, SourceNamespace> _namespacesByName;
         private Dictionary<string, SourceFile> _filesByIdentifier;
         private Dictionary<string, SourceMethod> _methodsBySemanticName;
@@ -19,18 +21,24 @@ namespace IO_Project.Core.Analysis {
 
         public SourceAnalysisModel Analyze(List<InputFile> inputFiles) {
             ClearState();
-            
+
             AccumulateSyntaxTrees(inputFiles);
             CompileProject();
 
             //first iteration
             foreach (var inputFile in inputFiles) {
-                AggregateSourceSymbols(inputFile);
+                try {
+                    AggregateSourceSymbols(inputFile);
+                } catch (Exception e) {
+                }
             }
 
 
             foreach (var inputFile in inputFiles) {
-                FindSourceRelations(inputFile);
+                try {
+                    FindSourceRelations(inputFile);
+                } catch (Exception e) {
+                }
             }
 
             return new SourceAnalysisModel {
@@ -39,7 +47,7 @@ namespace IO_Project.Core.Analysis {
                 Namespaces = _namespacesByName
             };
         }
-        
+
 
         private void ClearState() {
             _namespacesByName = new Dictionary<string, SourceNamespace>();
@@ -48,8 +56,8 @@ namespace IO_Project.Core.Analysis {
             _classesByName = new Dictionary<string, SourceClass>();
             _syntaxTrees = new Dictionary<string, SyntaxTree>();
         }
-        
-        
+
+
         private void AccumulateSyntaxTrees(List<InputFile> inputFiles) {
             foreach (var inputFile in inputFiles) {
                 GetSyntaxTree(inputFile);
@@ -57,14 +65,13 @@ namespace IO_Project.Core.Analysis {
         }
 
         private void FindSourceRelations(InputFile inputFile) {
-            
             var tree = GetSyntaxTree(inputFile);
             var root = (CompilationUnitSyntax) tree.GetRoot();
 
-            if(!_filesByIdentifier.ContainsKey(inputFile.RelativePath)) return;
-            
+            if (!_filesByIdentifier.ContainsKey(inputFile.RelativePath)) return;
+
             var sourceFile = _filesByIdentifier[inputFile.RelativePath];
-            
+
             var model = _compilation.GetSemanticModel(tree);
             InsertFileRelations(root, sourceFile);
             InsertMethodRelations(root, sourceFile, model);
@@ -79,8 +86,8 @@ namespace IO_Project.Core.Analysis {
 
 
             var namespaceName = FindNamespace(root);
-            if(namespaceName == null) return; //invalid source file! (ie. AssemblyInfo) 
-            
+            if (namespaceName == null) return; //invalid source file! (ie. AssemblyInfo) 
+
             if (!_namespacesByName.ContainsKey(namespaceName)) {
                 _namespacesByName.Add(namespaceName, new SourceNamespace {
                     FullName = namespaceName
@@ -96,9 +103,11 @@ namespace IO_Project.Core.Analysis {
             var methods = FindMethods(root).Select(method => {
                 var semanticName = GetMethodDeclarationSymbolName(semantic, method);
                 var name = $"{method.ReturnType} {method.Identifier}{method.ParameterList}";
+                int compl = CalculateMethodCyclomaticComplexity(method);
 
                 return new SourceMethod {
-                    Name = name, ParentFile = sourceFile, SemanticName = semanticName
+                    Name = name, ParentFile = sourceFile, SemanticName = semanticName, 
+                    CyclomaticComplexity = compl
                 };
             }).ToList();
 
@@ -112,9 +121,34 @@ namespace IO_Project.Core.Analysis {
             }
 
             foreach (var sourceClass in classes) {
-                if(_classesByName.ContainsKey(sourceClass.Name)) continue;
+                if (_classesByName.ContainsKey(sourceClass.Name)) continue;
                 _classesByName.Add(sourceClass.Name, sourceClass);
             }
+        }
+
+        private int CalculateMethodCyclomaticComplexity(MethodDeclarationSyntax method) {
+            int complexity = 1;
+            foreach (var syntax in method.Body.DescendantNodes()) {
+                if (syntax is ReturnStatementSyntax
+                    || syntax is IfStatementSyntax
+                    || syntax is ElseClauseSyntax
+                    || syntax is CaseSwitchLabelSyntax
+                    || syntax is DefaultSwitchLabelSyntax
+                    || syntax is ForStatementSyntax
+                    || syntax is ForEachStatementSyntax
+                    || syntax is WhileStatementSyntax
+                    || syntax is BreakStatementSyntax
+                    || syntax is ContinueStatementSyntax
+                    || syntax is CatchClauseSyntax
+                    || syntax is FinallyClauseSyntax
+                    || syntax is ThrowStatementSyntax
+                    || syntax is BinaryExpressionSyntax
+                    || syntax is ConditionalExpressionSyntax) {
+                    complexity++;
+                }
+            }
+
+            return complexity;
         }
 
         private void CompileProject() {
@@ -139,8 +173,11 @@ namespace IO_Project.Core.Analysis {
 
         private string FindNamespace(CompilationUnitSyntax root) {
             if (root.Members.Count == 0) return null;
-            var nsDeclaration = (NamespaceDeclarationSyntax) root.Members[0];
-            return nsDeclaration.Name.ToString();
+            if (root.Members[0] is NamespaceDeclarationSyntax ns) {
+                return ns.Name.ToString();
+            }
+
+            return null;
         }
 
         private IEnumerable<MethodDeclarationSyntax> FindMethods(CSharpSyntaxNode node) {
@@ -154,14 +191,14 @@ namespace IO_Project.Core.Analysis {
                 .Select(classSyntax => $"{classSyntax.Identifier}")
                 .ToList();
         }
-        
+
         private MethodDeclarationSyntax FindParentMethod(CSharpSyntaxNode node) {
             var nodes = node.Ancestors()
                 .OfType<MethodDeclarationSyntax>();
             if (nodes.Any()) return nodes.First();
             return null; //could be called from constructor
         }
-        
+
         private void InsertFileRelations(CSharpSyntaxNode root, SourceFile currentFile) {
             var classIdentifiers = root.DescendantNodes()
                 .OfType<IdentifierNameSyntax>()
@@ -183,17 +220,17 @@ namespace IO_Project.Core.Analysis {
             var symbolInfo = model.GetSymbolInfo(syntax);
             return symbolInfo.Symbol?.ToString();
         }
-        
+
         private void InsertMethodRelations(CSharpSyntaxNode root, SourceFile currentFile, SemanticModel model) {
             var methods = root.DescendantNodes()
                 .OfType<InvocationExpressionSyntax>();
 
             foreach (var invocation in methods) {
                 var invokeName = GetMethodInvocationName(model, invocation);
-                if(invokeName == null) continue;
+                if (invokeName == null) continue;
                 if (_methodsBySemanticName.ContainsKey(invokeName)) {
                     var invokedBy = FindParentMethod(invocation);
-                    if(invokedBy == null) continue; // constructor
+                    if (invokedBy == null) continue; // constructor
                     var declarationName = GetMethodDeclarationSymbolName(model, invokedBy);
 
                     if (_methodsBySemanticName.ContainsKey(declarationName)) {

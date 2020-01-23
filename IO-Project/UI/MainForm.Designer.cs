@@ -27,7 +27,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation planeTransformation5 = new Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation();
+            Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation planeTransformation1 = new Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation();
             this.btAnalyze = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btShowToolsTestForm = new System.Windows.Forms.Button();
@@ -122,7 +122,6 @@
             this.gViewer1.BuildHitTree = true;
             this.gViewer1.CurrentLayoutMethod = Microsoft.Msagl.GraphViewerGdi.LayoutMethod.UseSettingsOfTheGraph;
             this.gViewer1.EdgeInsertButtonVisible = true;
-            this.gViewer1.Enabled = true;
             this.gViewer1.FileName = "";
             this.gViewer1.ForwardEnabled = false;
             this.gViewer1.Graph = null;
@@ -148,7 +147,7 @@
             this.gViewer1.TabIndex = 2;
             this.gViewer1.TightOffsetForRouting = 0.125D;
             this.gViewer1.ToolBarIsVisible = true;
-            this.gViewer1.Transform = planeTransformation5;
+            this.gViewer1.Transform = planeTransformation1;
             this.gViewer1.UndoRedoButtonsVisible = true;
             this.gViewer1.WindowZoomButtonPressed = false;
             this.gViewer1.ZoomF = 1D;
