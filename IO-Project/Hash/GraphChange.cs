@@ -13,26 +13,32 @@ namespace IO_Project.Hash
 
         public static List<string> GraphChanges(string workingDir)
         {
-            ProcessStartInfo processStartInfo = new ProcessStartInfo("git", "diff --name-only HEAD~1 HEAD")
-            {
-                WorkingDirectory = workingDir,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                RedirectStandardInput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-            var process = Process.Start(processStartInfo);
-            process.WaitForExit();
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
-            var exitCode = process.ExitCode;
-            process.Close();
+            try {
+                ProcessStartInfo processStartInfo = new ProcessStartInfo("git", "diff --name-only HEAD~1 HEAD")
+                {
+                    WorkingDirectory = workingDir,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    RedirectStandardInput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+                var process = Process.Start(processStartInfo);
+                process.WaitForExit();
+                string output = process.StandardOutput.ReadToEnd();
+                string error = process.StandardError.ReadToEnd();
+                var exitCode = process.ExitCode;
+                process.Close();
 
-            string[] pathToChanges = output.Split('\n');
-            List<string> lst = pathToChanges.OfType<string>().ToList();
+            
+                string[] pathToChanges = output.Replace('/', '\\').Split('\n');
+                List<string> lst = pathToChanges.OfType<string>().ToList();
 
-            return lst;
+                return lst;
+            } catch (Exception e) {
+                return new List<string>();
+            }
+            
         }
 
 

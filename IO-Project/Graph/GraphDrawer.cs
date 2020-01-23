@@ -119,7 +119,7 @@ namespace IO_Project.Graph {
             foreach (var file in _mainModel.Files.Values) {
                 DrawingNode tmpNode = new DrawingNode(file.Filename);
                 tmpNode.LabelText = file.Filename + "\nSize: " + file.Size;
-                tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Box;
+                tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
                 Color newColor = generateColor(tmpNode.Attr.Color);
                 tmpNode.Attr.FillColor = newColor;
                 if (file.ChangedSinceLastCommit)

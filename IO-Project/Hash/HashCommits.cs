@@ -13,23 +13,27 @@ namespace IO_Project.Hash
         
         public static string ExecuteGitBashCommand(string workingDir)
         {
-            ProcessStartInfo processStartInfo = new ProcessStartInfo("git", "rev-parse Head")
-            {
-                WorkingDirectory = workingDir,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                RedirectStandardInput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-            var process = Process.Start(processStartInfo);
-            process.WaitForExit();
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
-            var exitCode = process.ExitCode;
-            process.Close();
+            try {
+                ProcessStartInfo processStartInfo = new ProcessStartInfo("git", "rev-parse --short Head")
+                {
+                    WorkingDirectory = workingDir,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    RedirectStandardInput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+                var process = Process.Start(processStartInfo);
+                process.WaitForExit();
+                string output = process.StandardOutput.ReadToEnd();
+                string error = process.StandardError.ReadToEnd();
+                var exitCode = process.ExitCode;
+                process.Close();
 
-            return output;
+                return output;
+            } catch (Exception e) {
+                return null;
+            }
         }
     }
 }

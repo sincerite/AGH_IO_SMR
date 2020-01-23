@@ -96,7 +96,7 @@ namespace IO_Project.UI
             
             string commit = HashCommits.ExecuteGitBashCommand(projectRoot);
             string status;
-            if (commit == null)
+            if (string.IsNullOrEmpty(commit))
             {
                 status = "Not found";
                 commit = "Unknown";
@@ -113,7 +113,8 @@ namespace IO_Project.UI
         private void AnalyzeFiles()
         {
             if (_inputFiles == null) return;
-            var result = _analyzer.Analyze(_inputFiles);
+            var changedFilesPaths = GraphChange.GraphChanges(projectRoot);
+            var result = _analyzer.Analyze(_inputFiles, changedFilesPaths);
             _graphDrawer.filesToFiles = chbFirstStory.Checked;
             _graphDrawer.methodsToMethods = chbSecondStory.Checked;
             _graphDrawer.methodsToNamespaces = chbThirdStory.Checked;

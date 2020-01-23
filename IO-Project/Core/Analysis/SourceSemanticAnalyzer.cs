@@ -18,12 +18,14 @@ namespace IO_Project.Core.Analysis {
 
         private Dictionary<string, SyntaxTree> _syntaxTrees = new Dictionary<string, SyntaxTree>();
         private CSharpCompilation _compilation;
+        private List<string> _changedFiles;
 
-        public SourceAnalysisModel Analyze(List<InputFile> inputFiles) {
+        public SourceAnalysisModel Analyze(List<InputFile> inputFiles, List<string> changedFiles) {
             ClearState();
-
+            _changedFiles = changedFiles;
             AccumulateSyntaxTrees(inputFiles);
             CompileProject();
+            
 
             //first iteration
             foreach (var inputFile in inputFiles) {
@@ -80,6 +82,7 @@ namespace IO_Project.Core.Analysis {
 
         private void AggregateSourceSymbols(InputFile inputFile) {
             var sourceFile = SourceFile.CreateFromInputFile(inputFile);
+            sourceFile.ChangedSinceLastCommit = _changedFiles.Contains(inputFile.RelativePath);
             var tree = GetSyntaxTree(inputFile);
             var root = (CompilationUnitSyntax) tree.GetRoot();
             var semantic = _compilation.GetSemanticModel(tree);
