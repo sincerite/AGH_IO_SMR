@@ -8,22 +8,44 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace IO_Project.Core.Analysis {
     public class SourceSemanticAnalyzer {
-        
-        public SourceAnalysisModel Analyze(List<InputFile> inputFiles) {
+        private Dictionary<string, SourceNamespace> _namespacesByName;
+        private Dictionary<string, SourceFile> _filesByIdentifier;
+        private Dictionary<string, SourceMethod> _methodsByIdentifier;
+        private Dictionary<string, SourceClass> _classesByIdentifier;
 
-            var namespaces = new Dictionary<string, SourceNamespace>();
+
+        public SourceAnalysisModel Analyze(List<InputFile> inputFiles) {
+            ClearState();
+            AggregateSourceSymbols(inputFiles);
+
+            return null;
+        }
+
+        private void ClearState() {
+            _namespacesByName = new Dictionary<string, SourceNamespace>();
+            _filesByIdentifier = new Dictionary<string, SourceFile>();
+            _methodsByIdentifier = new Dictionary<string, SourceMethod>();
+            _classesByIdentifier = new Dictionary<string, SourceClass>();
+        }
+
+        private void FindSourceRelations(List<InputFile> inputFiles) {
             
+        }
+
+        private void AggregateSourceSymbols(List<InputFile> inputFiles) {
+            //first iteration, 
             foreach (var inputFile in inputFiles) {
-                var sourceFile = CreateSourceFileFromInputFile(inputFile);
+                var sourceFile = SourceFile.CreateFromInputFile(inputFile);
                 var root = ParseSource(inputFile.Content);
 
                 var namespaceName = FindNamespace(root);
-                if (!namespaces.ContainsKey(namespaceName)) {
-                    namespaces.Add(namespaceName, new SourceNamespace {
+                if (!_namespacesByName.ContainsKey(namespaceName)) {
+                    _namespacesByName.Add(namespaceName, new SourceNamespace {
                         FullName = namespaceName
                     });
                 }
-                var namespaceObj = namespaces[namespaceName];
+
+                var namespaceObj = _namespacesByName[namespaceName];
                 namespaceObj.Files.Add(sourceFile);
 
                 var classes = FindClasses(root).Select(className => new SourceClass {
@@ -36,26 +58,23 @@ namespace IO_Project.Core.Analysis {
                 sourceFile.Namespace = namespaceObj;
                 sourceFile.Classes = classes;
                 sourceFile.Methods = methods;
-            }
-            
 
-            return null;
+                _filesByIdentifier.Add(sourceFile.UniqueIdentifier, sourceFile);
+                foreach (var sourceMethod in methods) {
+                    _methodsByIdentifier.Add(sourceMethod.UniqueIdentifier, sourceMethod);
+                }
+
+                foreach (var sourceClass in classes) {
+                    _classesByIdentifier.Add(sourceClass.UniqueIdentifier, sourceClass);
+                }
+            }
         }
 
         private CompilationUnitSyntax ParseSource(string source) {
             SyntaxTree tree = CSharpSyntaxTree.ParseText(source);
             return (CompilationUnitSyntax) tree.GetRoot();
         }
-
-        private SourceFile CreateSourceFileFromInputFile(InputFile inputFile) {
-            return new SourceFile {
-                Filename = inputFile.Filename,
-                Path = inputFile.AbsolutePath,
-                RelativePath = inputFile.RelativePath,
-                Size = inputFile.Size
-            };
-        }
-
+        
         private string FindNamespace(CompilationUnitSyntax root) {
             var nsDeclaration = (NamespaceDeclarationSyntax) root.Members[0];
             return nsDeclaration.Name.ToString();

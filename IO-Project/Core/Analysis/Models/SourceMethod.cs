@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace IO_Project.Core.Analysis.Models {
     public class SourceMethod : BaseSourceElement {
+        
+        public override string UniqueIdentifier => $"{ParentFile.UniqueIdentifier}#{Name}";
+
         public string Name; //should we take into account return and argument types?
         public SourceFile ParentFile;
         public List<SourceRelation<SourceMethod>> MethodRelationsByMethodInvocations = 
