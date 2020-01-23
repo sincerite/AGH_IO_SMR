@@ -42,13 +42,13 @@ namespace IO_Project.Input
             newInputFile.Size = 0;
 
             InputFiles.Add(newInputFile);
-            listBox1.Items.Add(newInputFile.RelativePath);
+            lbInputFiles.Items.Add(newInputFile.RelativePath);
         }
 
         private void SetRootPath(string path)
         {
             this.rootPath = path;
-            textBox1.Text = path;
+            tbProjectPath.Text = path;
         }
 
         private string DetermineRootPath()
@@ -86,17 +86,17 @@ namespace IO_Project.Input
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != -1)
+            if (lbInputFiles.SelectedIndex != -1)
             {
-                richTextBox1.Text = InputFiles[listBox1.SelectedIndex].Content;
+                rtbFileContent.Text = InputFiles[lbInputFiles.SelectedIndex].Content;
             }
         }
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex >= 0) // unselected = -1
+            if (lbInputFiles.SelectedIndex >= 0) // unselected = -1
             {
-                MessageBox.Show(InputFiles[listBox1.SelectedIndex].ToString(), "File Info");
+                MessageBox.Show(InputFiles[lbInputFiles.SelectedIndex].ToString(), "File Info");
             }
         }
 
@@ -123,7 +123,7 @@ namespace IO_Project.Input
         private void button3_Click(object sender, EventArgs e)
         {
             InputFiles.Clear();
-            listBox1.Items.Clear();
+            lbInputFiles.Items.Clear();
 
             foreach (string filePath in Directory
                 .EnumerateFiles(folderBrowserDialog1.SelectedPath, "*.*", SearchOption.AllDirectories)
@@ -137,19 +137,19 @@ namespace IO_Project.Input
         {
             SetRootPath(DetermineRootPath());
 
-            listBox1.Items.Clear();
+            lbInputFiles.Items.Clear();
             foreach (var file in InputFiles)
             {
                 file.RelativePath = GetRelativePath(file.AbsolutePath, rootPath);
-                listBox1.Items.Add(file.RelativePath);
+                lbInputFiles.Items.Add(file.RelativePath);
             }
 
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            InputFiles.RemoveAt(listBox1.SelectedIndex);
-            listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+            InputFiles.RemoveAt(lbInputFiles.SelectedIndex);
+            lbInputFiles.Items.RemoveAt(lbInputFiles.SelectedIndex);
         }
 
         private void BtAcceptFiles_Click(object sender, EventArgs e)
