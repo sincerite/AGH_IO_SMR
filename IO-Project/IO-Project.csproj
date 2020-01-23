@@ -151,6 +151,7 @@
     <Compile Include="Graph\GraphTestForm.Designer.cs">
       <DependentUpon>GraphTestForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hash\GraphChange.cs" />
     <Compile Include="Hash\HashCommits.cs" />
     <Compile Include="Input\InputFile.cs" />
     <Compile Include="Input\InputFormController.cs" />
