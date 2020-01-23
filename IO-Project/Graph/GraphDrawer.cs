@@ -45,7 +45,7 @@ namespace IO_Project.Graph {
                 {
                     DrawingNode tmpNode = new DrawingNode(file.Filename);
                     tmpNode.LabelText = file.RelativePath;
-                    tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Box;
+                    tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
                     Color newColor = generateColor(tmpNode.Attr.Color);
                     tmpColor = newColor;
                     tmpNode.Attr.FillColor = tmpColor;
@@ -54,8 +54,8 @@ namespace IO_Project.Graph {
                 foreach (var method in file.Methods)
                 {
                     DrawingNode tmpNode = new DrawingNode(method.Name);
-                    tmpNode.LabelText = method.Name;
-                    tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Circle;
+                    tmpNode.LabelText = method.Name + "\n" + method.InvokedCount;
+                    tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Box;
                     if (!methodsToFiles && method == file.Methods[0])
                     {
                         Color newColor = generateColor(tmpNode.Attr.Color);
@@ -70,8 +70,8 @@ namespace IO_Project.Graph {
             if (methodsToNamespaces) {
                 foreach (var namesp in _mainModel.Namespaces.Values) {
                     DrawingNode tmpNode = new DrawingNode(namesp.FullName);
-                    tmpNode.LabelText = namesp.Files.Count + "";
-                    tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
+                    tmpNode.LabelText = namesp.FullName + "\n" + namesp.Files.Count;
+                    tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Circle;
                     Color newColor = generateColor(tmpNode.Attr.Color);
                     tmpNode.Attr.FillColor = newColor;
                     graph.AddNode(tmpNode);
