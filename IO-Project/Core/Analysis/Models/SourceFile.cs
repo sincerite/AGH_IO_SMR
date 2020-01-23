@@ -9,7 +9,16 @@ namespace IO_Project.Core.Analysis.Models {
 
         //analysis based:
         public SourceNamespace Namespace;
-        public List<SourceRelation<SourceFile>> FileRelationsByClassReferences; //1st story
-        public List<SourceMethod> Methods; //6th story
+        public List<SourceClass> Classes = new List<SourceClass>();
+        public List<SourceRelation<SourceFile>> FileRelationsByClassReferences =
+            new List<SourceRelation<SourceFile>>(); //1st story
+        
+        public List<SourceMethod> Methods = new List<SourceMethod>(); //6th story
+
+        public void AddFileRelation(SourceFile file, int referencesCount) {
+            FileRelationsByClassReferences.Add(new SourceRelation<SourceFile> {
+                Reference = file, ReferencesCount = referencesCount
+            });
+        }
     }
 }
