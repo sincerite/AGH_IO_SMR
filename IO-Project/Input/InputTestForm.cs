@@ -9,27 +9,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using IO_Project.Core.Analysis;
+using IO_Project.Utils;
 using Console = System.Console;
 
 namespace IO_Project.Input
 {
     public partial class InputTestForm : Form
     {
-        // string pathSource = @"C:\dev\mesfem\mesfem\FEM\UniversalElement.cs";
-
-        private string rootPath;
-
-        public List<InputFile> InputFiles = new List<InputFile>();
+        public InputFormController formController;
 
         public InputTestForm()
         {
-            InitializeComponent();
-        }
+            formController = new InputFormController();
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.Title = "Select a valid C# class file";
-            openFileDialog1.ShowDialog();
+            InitializeComponent();
         }
 
         private void AddNewInputFile(string path)
@@ -37,46 +30,24 @@ namespace IO_Project.Input
             var newInputFile = new InputFile();
             newInputFile.Filename = Path.GetFileName(path);
             newInputFile.AbsolutePath = path;
-            newInputFile.RelativePath = GetRelativePath(path, rootPath);
+            newInputFile.RelativePath = Util.GetRelativePath(path, formController.rootPath);
             newInputFile.Content = File.ReadAllText(path);
             newInputFile.Size = 0;
 
-            InputFiles.Add(newInputFile);
+            formController.InputFiles.Add(newInputFile);
             lbInputFiles.Items.Add(newInputFile.RelativePath);
         }
 
         private void SetRootPath(string path)
         {
-            this.rootPath = path;
+            formController.rootPath = path;
             tbProjectPath.Text = path;
         }
 
-        private string DetermineRootPath()
+        private void btAddSingleFile_Click(object sender, EventArgs e)
         {
-            int k = InputFiles[0].AbsolutePath.Length;
-            for (int i = 1; i < InputFiles.Count; i++)
-            {
-                k = Math.Min(k, InputFiles[i].AbsolutePath.Length);
-                for (int j = 0; j < k; j++)
-                    if (InputFiles[i].AbsolutePath[j] != InputFiles[0].AbsolutePath[j])
-                    {
-                        k = j;
-                        break;
-                    }
-            }
-            return InputFiles[0].AbsolutePath.Substring(0, k);
-        }
-
-        string GetRelativePath(string filespec, string folder)
-        {
-            Uri pathUri = new Uri(filespec);
-            // Folders must end in a slash
-            if (!folder.EndsWith(Path.DirectorySeparatorChar.ToString()))
-            {
-                folder += Path.DirectorySeparatorChar;
-            }
-            Uri folderUri = new Uri(folder);
-            return Uri.UnescapeDataString(folderUri.MakeRelativeUri(pathUri).ToString().Replace('/', Path.DirectorySeparatorChar));
+            openFileDialog1.Title = "Select a valid C# class file";
+            openFileDialog1.ShowDialog();
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
@@ -84,19 +55,19 @@ namespace IO_Project.Input
             AddNewInputFile(openFileDialog1.FileName);
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void lbInputFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbInputFiles.SelectedIndex != -1)
             {
-                rtbFileContent.Text = InputFiles[lbInputFiles.SelectedIndex].Content;
+                rtbFileContent.Text = formController.InputFiles[lbInputFiles.SelectedIndex].Content;
             }
         }
 
-        private void listBox1_DoubleClick(object sender, EventArgs e)
+        private void lbInputFiles_DoubleClick(object sender, EventArgs e)
         {
             if (lbInputFiles.SelectedIndex >= 0) // unselected = -1
             {
-                MessageBox.Show(InputFiles[lbInputFiles.SelectedIndex].ToString(), "File Info");
+                MessageBox.Show(formController.InputFiles[lbInputFiles.SelectedIndex].ToString(), "File Info");
             }
         }
 
@@ -105,7 +76,7 @@ namespace IO_Project.Input
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btOpenFolder_Click(object sender, EventArgs e)
         {
             DialogResult result = folderBrowserDialog1.ShowDialog();
 
@@ -119,10 +90,10 @@ namespace IO_Project.Input
         {
 
         }
-        
-        private void button3_Click(object sender, EventArgs e)
+
+        private void btSethPath_Click(object sender, EventArgs e)
         {
-            InputFiles.Clear();
+            formController.InputFiles.Clear();
             lbInputFiles.Items.Clear();
 
             foreach (string filePath in Directory
@@ -133,28 +104,28 @@ namespace IO_Project.Input
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btDetermineRootPath_Click(object sender, EventArgs e)
         {
-            SetRootPath(DetermineRootPath());
+            SetRootPath(formController.DetermineRootPath());
 
             lbInputFiles.Items.Clear();
-            foreach (var file in InputFiles)
+            foreach (var file in formController.InputFiles)
             {
-                file.RelativePath = GetRelativePath(file.AbsolutePath, rootPath);
+                file.RelativePath = Util.GetRelativePath(file.AbsolutePath, formController.rootPath);
                 lbInputFiles.Items.Add(file.RelativePath);
             }
-
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btRemoveFile_Click(object sender, EventArgs e)
         {
-            InputFiles.RemoveAt(lbInputFiles.SelectedIndex);
+            formController.InputFiles.RemoveAt(lbInputFiles.SelectedIndex);
             lbInputFiles.Items.RemoveAt(lbInputFiles.SelectedIndex);
         }
 
+
         private void BtAcceptFiles_Click(object sender, EventArgs e)
         {
-            if (InputFiles.Count > 0) {
+            if (formController.InputFiles.Count > 0) {
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

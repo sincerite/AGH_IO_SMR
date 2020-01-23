@@ -56,7 +56,7 @@
             this.btAddSingleFile.TabIndex = 1;
             this.btAddSingleFile.Text = "Add single file";
             this.btAddSingleFile.UseVisualStyleBackColor = true;
-            this.btAddSingleFile.Click += new System.EventHandler(this.button1_Click);
+            this.btAddSingleFile.Click += new System.EventHandler(this.btAddSingleFile_Click);
             // 
             // openFileDialog1
             // 
@@ -70,8 +70,8 @@
             this.lbInputFiles.Name = "lbInputFiles";
             this.lbInputFiles.Size = new System.Drawing.Size(383, 199);
             this.lbInputFiles.TabIndex = 2;
-            this.lbInputFiles.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            this.lbInputFiles.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
+            this.lbInputFiles.SelectedIndexChanged += new System.EventHandler(this.lbInputFiles_SelectedIndexChanged);
+            this.lbInputFiles.DoubleClick += new System.EventHandler(this.lbInputFiles_DoubleClick);
             // 
             // btOpenFolder
             // 
@@ -81,7 +81,7 @@
             this.btOpenFolder.TabIndex = 3;
             this.btOpenFolder.Text = "Open folder";
             this.btOpenFolder.UseVisualStyleBackColor = true;
-            this.btOpenFolder.Click += new System.EventHandler(this.button2_Click);
+            this.btOpenFolder.Click += new System.EventHandler(this.btOpenFolder_Click);
             // 
             // folderBrowserDialog1
             // 
@@ -103,7 +103,7 @@
             this.btSetPath.TabIndex = 5;
             this.btSetPath.Text = "Set as root path";
             this.btSetPath.UseVisualStyleBackColor = true;
-            this.btSetPath.Click += new System.EventHandler(this.button3_Click);
+            this.btSetPath.Click += new System.EventHandler(this.btSethPath_Click);
             // 
             // btRemoveFile
             // 
@@ -113,7 +113,7 @@
             this.btRemoveFile.TabIndex = 6;
             this.btRemoveFile.Text = "Remove";
             this.btRemoveFile.UseVisualStyleBackColor = true;
-            this.btRemoveFile.Click += new System.EventHandler(this.button4_Click);
+            this.btRemoveFile.Click += new System.EventHandler(this.btRemoveFile_Click);
             // 
             // btDetermineRootPath
             // 
@@ -123,7 +123,7 @@
             this.btDetermineRootPath.TabIndex = 7;
             this.btDetermineRootPath.Text = "Determine Root Path";
             this.btDetermineRootPath.UseVisualStyleBackColor = true;
-            this.btDetermineRootPath.Click += new System.EventHandler(this.button5_Click);
+            this.btDetermineRootPath.Click += new System.EventHandler(this.btDetermineRootPath_Click);
             // 
             // btAcceptFiles
             // 
