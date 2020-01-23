@@ -14,17 +14,23 @@ namespace IO_Project.Core.Analysis.Models {
         //analysis based:
         public SourceNamespace Namespace;
         public List<SourceClass> Classes = new List<SourceClass>();
-        public List<SourceRelation<SourceFile>> FileRelationsByClassReferences =
-            new List<SourceRelation<SourceFile>>(); //1st story
+        public Dictionary<string, SourceRelation<SourceFile>> FileRelationsByClassReferences =
+            new Dictionary<string, SourceRelation<SourceFile>>(); //1st story
         
         public List<SourceMethod> Methods = new List<SourceMethod>(); //6th story
 
         
         
-        public void AddFileRelation(SourceFile file, int referencesCount) {
-            FileRelationsByClassReferences.Add(new SourceRelation<SourceFile> {
-                Reference = file, ReferencesCount = referencesCount
-            });
+        public void AddFileRelation(SourceFile file) {
+            var id = file.UniqueIdentifier;
+            if (FileRelationsByClassReferences.ContainsKey(id)) {
+                FileRelationsByClassReferences[id].ReferencesCount++;
+            } else {
+                var relation = new SourceRelation<SourceFile> {
+                    Reference = file, ReferencesCount = 1
+                };
+                FileRelationsByClassReferences.Add(id, relation);
+            }
         }
         
         public static SourceFile CreateFromInputFile(InputFile inputFile) {
