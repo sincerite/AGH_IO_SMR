@@ -28,7 +28,7 @@ namespace IO_Project.Graph
         }
         public void GenerateMethodsGraph()
         {
-            foreach (var file in _mainModel.Files)
+            foreach (var file in _mainModel.Files.Values)
             {
                 foreach (var method in file.Methods)
                 {
@@ -39,7 +39,7 @@ namespace IO_Project.Graph
             }
             if (methodsToNamespaces)
             {
-                foreach (var namesp in _mainModel.Namespaces)
+                foreach (var namesp in _mainModel.Namespaces.Values)
                 {
                     DrawingNode tmpNode = new DrawingNode(namesp.FullName);
                     tmpNode.LabelText = namesp.Files.Count + "";
@@ -48,14 +48,14 @@ namespace IO_Project.Graph
             }
             if (methodsToFiles)
             {
-                foreach (var file in _mainModel.Files)
+                foreach (var file in _mainModel.Files.Values)
                 {
                     DrawingNode tmpNode = new DrawingNode(file.Filename);
                     tmpNode.LabelText = file.Size + "";
                     graph2.AddNode(tmpNode);
                 }
             }
-            foreach (var file in _mainModel.Files)
+            foreach (var file in _mainModel.Files.Values)
             {
                 foreach (var method in file.Methods)
                 {
@@ -70,7 +70,7 @@ namespace IO_Project.Graph
 
                     if (methodsToNamespaces)
                     {
-                        foreach (var namesp in _mainModel.Namespaces)
+                        foreach (var namesp in _mainModel.Namespaces.Values)
                         {
                             foreach (var rNamesp in namesp.NamespacesRelationsByMethodReferences)
                             {
@@ -90,12 +90,12 @@ namespace IO_Project.Graph
         public void GenerateFilesGraph()
         {
             graph1 = new Microsoft.Msagl.Drawing.Graph();
-            foreach (var file in _mainModel.Files)
+            foreach (var file in _mainModel.Files.Values)
             {
                 DrawingNode tmpNode = new DrawingNode(file.Filename);
                 tmpNode.LabelText = file.Filename + " " + file.Size;
                 graph1.AddNode(tmpNode);
-                foreach (var rFile in file.FileRelationsByClassReferences)
+                foreach (var rFile in file.FileRelationsByClassReferences.Values)
                 {
                     //DrawingEdge tmpEdge = new DrawingEdge(tmpNode.Id, rFile.ReferencesCount+"", rFile.Reference.Filename);
                     graph1.AddEdge(tmpNode.Id, rFile.ReferencesCount + "", rFile.Reference.Filename);

@@ -45,11 +45,12 @@ namespace IO_Project.Tests
             r1.Reference = f2;
             r1.ReferencesCount = 3;
             SourceRelation<SourceFile>[] relations = { r1 };
-            f1.FileRelationsByClassReferences = relations.ToList();
+//            f1.FileRelationsByClassReferences = relations.ToList();
             
             
             SourceFile[] files1 = { f1 }; ns1.Files = files1.ToList(); 
-            SourceFile[] files2 = { f2 }; ns2.Files = files2.ToList(); SourceFile[] files3 = { f1, f2 }; model.Files = files3.ToList();
+            SourceFile[] files2 = { f2 }; ns2.Files = files2.ToList(); SourceFile[] files3 = { f1, f2 }; 
+//            model.Files = files3.ToList();
             return model;
         }
     }

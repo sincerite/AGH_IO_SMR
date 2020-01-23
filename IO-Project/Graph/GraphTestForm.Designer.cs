@@ -26,14 +26,10 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation planeTransformation1 = new Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation();
             this.gViewer1 = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             this.SuspendLayout();
-            // 
-            // gViewer1
-            // 
             this.gViewer1.ArrowheadLength = 10D;
             this.gViewer1.AsyncLayout = false;
             this.gViewer1.AutoScroll = true;
@@ -72,9 +68,6 @@
             this.gViewer1.ZoomF = 1D;
             this.gViewer1.ZoomWindowThreshold = 0.05D;
             this.gViewer1.Load += new System.EventHandler(this.gViewer1_Load);
-            // 
-            // GraphTestForm
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
@@ -84,7 +77,6 @@
             this.Text = "GraphTestForm";
             this.Load += new System.EventHandler(this.GraphTestForm_Load);
             this.ResumeLayout(false);
-
         }
 
         #endregion

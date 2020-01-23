@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using IO_Project.Core.Analysis;
 using Console = System.Console;
 
 namespace IO_Project.Input
@@ -18,7 +19,7 @@ namespace IO_Project.Input
 
         private string rootPath;
 
-        List<InputFile> inputFiles = new List<InputFile>();
+        public List<InputFile> InputFiles = new List<InputFile>();
 
         public InputTestForm()
         {
@@ -40,7 +41,7 @@ namespace IO_Project.Input
             newInputFile.Content = File.ReadAllText(path);
             newInputFile.Size = 0;
 
-            inputFiles.Add(newInputFile);
+            InputFiles.Add(newInputFile);
             listBox1.Items.Add(newInputFile.RelativePath);
         }
 
@@ -52,18 +53,18 @@ namespace IO_Project.Input
 
         private string DetermineRootPath()
         {
-            int k = inputFiles[0].AbsolutePath.Length;
-            for (int i = 1; i < inputFiles.Count; i++)
+            int k = InputFiles[0].AbsolutePath.Length;
+            for (int i = 1; i < InputFiles.Count; i++)
             {
-                k = Math.Min(k, inputFiles[i].AbsolutePath.Length);
+                k = Math.Min(k, InputFiles[i].AbsolutePath.Length);
                 for (int j = 0; j < k; j++)
-                    if (inputFiles[i].AbsolutePath[j] != inputFiles[0].AbsolutePath[j])
+                    if (InputFiles[i].AbsolutePath[j] != InputFiles[0].AbsolutePath[j])
                     {
                         k = j;
                         break;
                     }
             }
-            return inputFiles[0].AbsolutePath.Substring(0, k);
+            return InputFiles[0].AbsolutePath.Substring(0, k);
         }
 
         string GetRelativePath(string filespec, string folder)
@@ -87,7 +88,7 @@ namespace IO_Project.Input
         {
             if (listBox1.SelectedIndex != -1)
             {
-                richTextBox1.Text = inputFiles[listBox1.SelectedIndex].Content;
+                richTextBox1.Text = InputFiles[listBox1.SelectedIndex].Content;
             }
         }
 
@@ -95,7 +96,7 @@ namespace IO_Project.Input
         {
             if (listBox1.SelectedIndex >= 0) // unselected = -1
             {
-                MessageBox.Show(inputFiles[listBox1.SelectedIndex].ToString(), "File Info");
+                MessageBox.Show(InputFiles[listBox1.SelectedIndex].ToString(), "File Info");
             }
         }
 
@@ -121,7 +122,7 @@ namespace IO_Project.Input
         
         private void button3_Click(object sender, EventArgs e)
         {
-            inputFiles.Clear();
+            InputFiles.Clear();
             listBox1.Items.Clear();
 
             foreach (string filePath in Directory
@@ -137,7 +138,7 @@ namespace IO_Project.Input
             SetRootPath(DetermineRootPath());
 
             listBox1.Items.Clear();
-            foreach (var file in inputFiles)
+            foreach (var file in InputFiles)
             {
                 file.RelativePath = GetRelativePath(file.AbsolutePath, rootPath);
                 listBox1.Items.Add(file.RelativePath);
@@ -147,8 +148,16 @@ namespace IO_Project.Input
 
         private void button4_Click(object sender, EventArgs e)
         {
-            inputFiles.RemoveAt(listBox1.SelectedIndex);
+            InputFiles.RemoveAt(listBox1.SelectedIndex);
             listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+        }
+
+        private void BtAcceptFiles_Click(object sender, EventArgs e)
+        {
+            if (InputFiles.Count > 0) {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
     }
 }
