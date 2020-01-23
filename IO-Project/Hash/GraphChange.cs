@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+
 namespace IO_Project.Hash
 {
-    class HashCommits
+    class GraphChange
     {
-        public static string acctualCommitHash;
-        public static string gitParams = "rev-parse Head";
-        
-        public static string ExecuteGitBashCommand(string workingDir)
+        public static string gitParams = "diff --name-only HEAD~1 HEAD";
+
+        public static List<string> GraphChanges(string workingDir)
         {
-            ProcessStartInfo processStartInfo = new ProcessStartInfo("git", "rev-parse Head")
+            ProcessStartInfo processStartInfo = new ProcessStartInfo("git", "diff --name-only HEAD~1 HEAD")
             {
                 WorkingDirectory = workingDir,
                 RedirectStandardOutput = true,
@@ -29,7 +29,12 @@ namespace IO_Project.Hash
             var exitCode = process.ExitCode;
             process.Close();
 
-            return output;
+            string[] pathToChanges = output.Split('\n');
+            List<string> lst = pathToChanges.OfType<string>().ToList();
+
+            return lst;
         }
+
+
     }
 }
