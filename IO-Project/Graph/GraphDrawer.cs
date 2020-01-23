@@ -56,6 +56,11 @@ namespace IO_Project.Graph {
                     DrawingNode tmpNode = new DrawingNode(method.Name);
                     tmpNode.LabelText = method.Name;
                     tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Circle;
+                    if (!methodsToFiles && method == file.Methods[0])
+                    {
+                        Color newColor = generateColor(tmpNode.Attr.Color);
+                        tmpColor = newColor;
+                    }
                     tmpNode.Attr.FillColor = tmpColor;
                     graph.AddNode(tmpNode);
                 }

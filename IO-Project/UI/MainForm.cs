@@ -12,6 +12,7 @@ using IO_Project.Core.Analysis;
 using IO_Project.Graph;
 using IO_Project.Input;
 using IO_Project.Tools;
+using Microsoft.Msagl.GraphViewerGdi;
 
 namespace IO_Project.UI
 {
