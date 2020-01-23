@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IO_Project.Core.Analysis.Models;
 using Microsoft.Msagl.Core.Layout;
+using Microsoft.Msagl.Drawing;
 using Microsoft.Msagl.GraphViewerGdi;
 using DrawingEdge = Microsoft.Msagl.Drawing.Edge;
 using DrawingNode = Microsoft.Msagl.Drawing.Node;
@@ -15,6 +16,7 @@ namespace IO_Project.Graph {
         private SourceAnalysisModel _mainModel;
         public bool methodsToMethods, methodsToNamespaces, methodsToFiles, filesToFiles;
         private Microsoft.Msagl.Drawing.Graph graph1, graph2, mergedGraph;
+        private Random rnd = new Random();
 
         public GraphDrawer(GViewer gViewer) {
             _gViewer = gViewer;
@@ -24,6 +26,7 @@ namespace IO_Project.Graph {
             _mainModel = model;
             graph1 = null;
             graph2 = null;
+            mergedGraph = null;
             if (filesToFiles) GenerateFilesGraph();
             if (methodsToMethods || methodsToNamespaces || methodsToFiles) GenerateMethodsGraph();
             showGraph();
@@ -32,68 +35,69 @@ namespace IO_Project.Graph {
         public void GenerateMethodsGraph() {
             graph2 = new Microsoft.Msagl.Drawing.Graph();
             foreach (var file in _mainModel.Files.Values) {
-                if (file.Methods != null)
+                Color tmpColor=Color.White;
+                if (methodsToFiles)
                 {
-                    foreach (var method in file.Methods)
-                    {
-                        DrawingNode tmpNode = new DrawingNode(method.Name);
-                        tmpNode.LabelText = method.Name;   //DODAC LABEL
-                        graph2.AddNode(tmpNode);
-                    }
+                    DrawingNode tmpNode = new DrawingNode(file.Filename);
+                    tmpNode.LabelText = file.RelativePath;
+                    tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Box;
+                    Color newColor = generateColor(tmpNode.Attr.Color);
+                    tmpColor = newColor;
+                    tmpNode.Attr.FillColor = tmpColor;
+                    graph2.AddNode(tmpNode);
                 }
+                foreach (var method in file.Methods)
+                {
+                    DrawingNode tmpNode = new DrawingNode(method.Name);
+                    tmpNode.LabelText = method.Name;
+                    tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Circle;
+                    tmpNode.Attr.FillColor = tmpColor;
+                    graph2.AddNode(tmpNode);
+                }
+
             }
 
             if (methodsToNamespaces) {
                 foreach (var namesp in _mainModel.Namespaces.Values) {
                     DrawingNode tmpNode = new DrawingNode(namesp.FullName);
                     tmpNode.LabelText = namesp.Files.Count + "";
-                    graph2.AddNode(tmpNode);
-                }
-            }
-
-            if (methodsToFiles) {
-                foreach (var file in _mainModel.Files.Values) {
-                    DrawingNode tmpNode = new DrawingNode(file.Filename);
-                    tmpNode.LabelText = file.Size + "";
+                    tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
+                    Color newColor = generateColor(tmpNode.Attr.Color);
+                    tmpNode.Attr.FillColor = newColor;
                     graph2.AddNode(tmpNode);
                 }
             }
 
             foreach (var file in _mainModel.Files.Values) {
-                if (file.Methods != null)
+                foreach (var method in file.Methods)
                 {
-                    foreach (var method in file.Methods)
+                    if (methodsToMethods)
                     {
-                        if (methodsToMethods)
+                        foreach (var rMethod in method.MethodRelationsByMethodInvocations)
                         {
-                            foreach (var rMethod in method.MethodRelationsByMethodInvocations)
+                            graph2.AddEdge(method.Name, rMethod.ReferencesCount + "", rMethod.Reference.Name);
+                        }
+                    }
+
+
+                    if (methodsToNamespaces)
+                    {
+                        foreach (var namesp in _mainModel.Namespaces.Values)
+                        {
+                            foreach (var rNamesp in namesp.NamespacesRelationsByMethodReferences)
                             {
-                                graph2.AddEdge(method.Name, rMethod.ReferencesCount + "", rMethod.Reference.Name);
+                                graph2.AddEdge(method.Name, rNamesp.ReferencesCount + "",
+                                rNamesp.Reference.FullName);
                             }
                         }
+                    }
 
-
-                        if (methodsToNamespaces)
-                        {
-                            foreach (var namesp in _mainModel.Namespaces.Values)
-                            {
-                                foreach (var rNamesp in namesp.NamespacesRelationsByMethodReferences)
-                                {
-                                    graph2.AddEdge(method.Name, rNamesp.ReferencesCount + "",
-                                        rNamesp.Reference.FullName);
-                                }
-                            }
-                        }
-
-                        if (methodsToFiles)
-                        {
-                            graph2.AddEdge(method.Name, null, file.Filename);
-                        }
+                    if (methodsToFiles)
+                    {
+                        graph2.AddEdge(method.Name, null, file.Filename);
                     }
                 }
             }
-
-            //_gViewer.Graph = graph2;
         }
 
         public void GenerateFilesGraph() {
@@ -101,16 +105,18 @@ namespace IO_Project.Graph {
             foreach (var file in _mainModel.Files.Values) {
                 DrawingNode tmpNode = new DrawingNode(file.Filename);
                 tmpNode.LabelText = file.Filename + "\n" + file.Size;
+                tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Box;
+                Color newColor = generateColor(tmpNode.Attr.Color);
+                tmpNode.Attr.FillColor = newColor;
                 graph1.AddNode(tmpNode);
             }
 
             foreach (var file in _mainModel.Files.Values) {
-                foreach (var rFile in file.FileRelationsByClassReferences.Values) {
-                    graph1.AddEdge(file.Filename, rFile.ReferencesCount + "", rFile.Reference.Filename);
-                }
+                    foreach (var rFile in file.FileRelationsByClassReferences.Values)
+                    {
+                        graph1.AddEdge(file.Filename, rFile.ReferencesCount + "", rFile.Reference.Filename);
+                    }
             }
-
-            //_gViewer.Graph = graph1;
         }
 
         public void MergeGraphs(Microsoft.Msagl.Drawing.Graph g1, Microsoft.Msagl.Drawing.Graph g2)
@@ -141,6 +147,15 @@ namespace IO_Project.Graph {
                 _gViewer.Graph = graph2;
             }
         }
-        
+        private Color generateColor(Color colorNode)
+        {
+            int beg = 100;
+            int end = 255;
+            colorNode.R = byte.Parse(rnd.Next(beg, end) + "");
+            colorNode.G = byte.Parse(rnd.Next(beg, end) + "");
+            colorNode.B = byte.Parse(rnd.Next(beg, end) + "");
+            return colorNode;
+        }
+
     }
 }
