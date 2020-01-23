@@ -44,6 +44,25 @@ namespace IO_Project.Input
             tbProjectPath.Text = path;
         }
 
+        private void SetPath(string path)
+        {
+            SetRootPath(path);
+            ClearForm();
+
+            foreach (string filePath in Directory
+                .EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
+                .Where(filePath => filePath.ToLower().EndsWith("cs")))
+            {
+                AddNewInputFile(filePath);
+            }
+        }
+
+        private void ClearForm()
+        {
+            formController.InputFiles.Clear();
+            lbInputFiles.Items.Clear();
+        }
+
         private void btAddSingleFile_Click(object sender, EventArgs e)
         {
             openFileDialog1.Title = "Select a valid C# class file";
@@ -83,6 +102,7 @@ namespace IO_Project.Input
             if (result == DialogResult.OK)
             {
                 SetRootPath(folderBrowserDialog1.SelectedPath);
+                SetPath(folderBrowserDialog1.SelectedPath);
             }
         }
 
@@ -93,14 +113,11 @@ namespace IO_Project.Input
 
         private void btSethPath_Click(object sender, EventArgs e)
         {
-            formController.InputFiles.Clear();
-            lbInputFiles.Items.Clear();
-
-            foreach (string filePath in Directory
-                .EnumerateFiles(folderBrowserDialog1.SelectedPath, "*.*", SearchOption.AllDirectories)
-                .Where(filePath => filePath.ToLower().EndsWith("cs")))
+            if (System.IO.Directory.Exists(tbProjectPath.Text))
             {
-                AddNewInputFile(filePath);
+                Console.WriteLine("true");
+
+                SetPath(tbProjectPath.Text);
             }
         }
 
