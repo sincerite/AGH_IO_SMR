@@ -49,12 +49,17 @@ namespace IO_Project.Graph {
                     Color newColor = generateColor(tmpNode.Attr.Color);
                     tmpColor = newColor;
                     tmpNode.Attr.FillColor = tmpColor;
+                    if (file.ChangedSinceLastCommit)
+                    {
+                        tmpNode.LabelText += "[NEW]";
+                        tmpNode.Label.FontStyle = FontStyle.Bold;
+                    }
                     graph.AddNode(tmpNode);
                 }
                 foreach (var method in file.Methods)
                 {
                     DrawingNode tmpNode = new DrawingNode(method.Name);
-                    tmpNode.LabelText = method.Name + "\n" + method.InvokedCount;
+                    tmpNode.LabelText = method.Name + "\nInvokedCount: " + method.InvokedCount + "\nCyclomaticComplexity: " + method.CyclomaticComplexity;
                     tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Box;
                     if (!methodsToFiles && method == file.Methods[0])
                     {
@@ -70,7 +75,7 @@ namespace IO_Project.Graph {
             if (methodsToNamespaces) {
                 foreach (var namesp in _mainModel.Namespaces.Values) {
                     DrawingNode tmpNode = new DrawingNode(namesp.FullName);
-                    tmpNode.LabelText = namesp.FullName + "\n" + namesp.Files.Count;
+                    tmpNode.LabelText = namesp.FullName + "\nReferencedCount: " + namesp.ReferencedCount;
                     tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Circle;
                     Color newColor = generateColor(tmpNode.Attr.Color);
                     tmpNode.Attr.FillColor = newColor;
@@ -113,10 +118,15 @@ namespace IO_Project.Graph {
         private void GenerateFilesGraph() {
             foreach (var file in _mainModel.Files.Values) {
                 DrawingNode tmpNode = new DrawingNode(file.Filename);
-                tmpNode.LabelText = file.Filename + "\n" + file.Size;
+                tmpNode.LabelText = file.Filename + "\nSize: " + file.Size;
                 tmpNode.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Box;
                 Color newColor = generateColor(tmpNode.Attr.Color);
                 tmpNode.Attr.FillColor = newColor;
+                if (file.ChangedSinceLastCommit)
+                {
+                    tmpNode.LabelText += "[NEW]";
+                    tmpNode.Label.FontStyle = FontStyle.Bold;
+                }
                 graph.AddNode(tmpNode);
             }
 
