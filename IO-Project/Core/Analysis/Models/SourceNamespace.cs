@@ -7,6 +7,7 @@ namespace IO_Project.Core.Analysis.Models {
 
         public string FullName;
         public List<SourceFile> Files = new List<SourceFile>();
+        public int ReferencedCount => Files.Count;
 
         public Dictionary<string, SourceRelation<SourceNamespace>> NamespacesRelationsByMethodReferences =
             new Dictionary<string, SourceRelation<SourceNamespace>>(); //3rd story
