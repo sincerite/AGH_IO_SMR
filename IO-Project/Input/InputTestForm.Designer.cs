@@ -27,106 +27,107 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.rtbFileContent = new System.Windows.Forms.RichTextBox();
+            this.btAddSingleFile = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.lbInputFiles = new System.Windows.Forms.ListBox();
+            this.btOpenFolder = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.tbProjectPath = new System.Windows.Forms.TextBox();
+            this.btSetPath = new System.Windows.Forms.Button();
+            this.btRemoveFile = new System.Windows.Forms.Button();
+            this.btDetermineRootPath = new System.Windows.Forms.Button();
             this.btAcceptFiles = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // richTextBox1
+            // rtbFileContent
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 12);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(387, 426);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "(file preview)";
+            this.rtbFileContent.Location = new System.Drawing.Point(12, 12);
+            this.rtbFileContent.Name = "rtbFileContent";
+            this.rtbFileContent.Size = new System.Drawing.Size(387, 426);
+            this.rtbFileContent.TabIndex = 0;
+            this.rtbFileContent.Text = "(file preview)";
             // 
-            // button1
+            // btAddSingleFile
             // 
-            this.button1.Location = new System.Drawing.Point(405, 282);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(170, 25);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Add single file";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btAddSingleFile.Location = new System.Drawing.Point(405, 282);
+            this.btAddSingleFile.Name = "btAddSingleFile";
+            this.btAddSingleFile.Size = new System.Drawing.Size(170, 25);
+            this.btAddSingleFile.TabIndex = 1;
+            this.btAddSingleFile.Text = "Add single file";
+            this.btAddSingleFile.UseVisualStyleBackColor = true;
+            this.btAddSingleFile.Click += new System.EventHandler(this.btAddSingleFile_Click);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // listBox1
+            // lbInputFiles
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(405, 77);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(383, 199);
-            this.listBox1.TabIndex = 2;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
+            this.lbInputFiles.FormattingEnabled = true;
+            this.lbInputFiles.Location = new System.Drawing.Point(405, 77);
+            this.lbInputFiles.Name = "lbInputFiles";
+            this.lbInputFiles.Size = new System.Drawing.Size(383, 199);
+            this.lbInputFiles.TabIndex = 2;
+            this.lbInputFiles.SelectedIndexChanged += new System.EventHandler(this.lbInputFiles_SelectedIndexChanged);
+            this.lbInputFiles.DoubleClick += new System.EventHandler(this.lbInputFiles_DoubleClick);
             // 
-            // button2
+            // btOpenFolder
             // 
-            this.button2.Location = new System.Drawing.Point(405, 38);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(110, 20);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Open folder";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btOpenFolder.Location = new System.Drawing.Point(405, 38);
+            this.btOpenFolder.Name = "btOpenFolder";
+            this.btOpenFolder.Size = new System.Drawing.Size(110, 20);
+            this.btOpenFolder.TabIndex = 3;
+            this.btOpenFolder.Text = "Open folder";
+            this.btOpenFolder.UseVisualStyleBackColor = true;
+            this.btOpenFolder.Click += new System.EventHandler(this.btOpenFolder_Click);
             // 
             // folderBrowserDialog1
             // 
             this.folderBrowserDialog1.RootFolder = System.Environment.SpecialFolder.MyComputer;
             this.folderBrowserDialog1.HelpRequest += new System.EventHandler(this.folderBrowserDialog1_HelpRequest);
             // 
-            // textBox1
+            // tbProjectPath
             // 
-            this.textBox1.Location = new System.Drawing.Point(405, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(383, 20);
-            this.textBox1.TabIndex = 4;
+            this.tbProjectPath.Location = new System.Drawing.Point(405, 12);
+            this.tbProjectPath.Name = "tbProjectPath";
+            this.tbProjectPath.Size = new System.Drawing.Size(333, 20);
+            this.tbProjectPath.TabIndex = 4;
             // 
-            // button3
+            // btSetPath
             // 
-            this.button3.Location = new System.Drawing.Point(521, 38);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(105, 20);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Set as root path";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btSetPath.Location = new System.Drawing.Point(744, 12);
+            this.btSetPath.Name = "btSetPath";
+            this.btSetPath.Size = new System.Drawing.Size(44, 20);
+            this.btSetPath.TabIndex = 5;
+            this.btSetPath.Text = "Set as root path";
+            this.btSetPath.UseVisualStyleBackColor = true;
+            this.btSetPath.Click += new System.EventHandler(this.btSethPath_Click);
             // 
-            // button4
+            // btRemoveFile
             // 
-            this.button4.Location = new System.Drawing.Point(704, 282);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(84, 25);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Remove";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btRemoveFile.Location = new System.Drawing.Point(704, 282);
+            this.btRemoveFile.Name = "btRemoveFile";
+            this.btRemoveFile.Size = new System.Drawing.Size(84, 25);
+            this.btRemoveFile.TabIndex = 6;
+            this.btRemoveFile.Text = "Remove";
+            this.btRemoveFile.UseVisualStyleBackColor = true;
+            this.btRemoveFile.Click += new System.EventHandler(this.btRemoveFile_Click);
             // 
-            // button5
+            // btDetermineRootPath
             // 
-            this.button5.Location = new System.Drawing.Point(405, 313);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(170, 25);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "Determine Root Path";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btDetermineRootPath.Location = new System.Drawing.Point(405, 313);
+            this.btDetermineRootPath.Name = "btDetermineRootPath";
+            this.btDetermineRootPath.Size = new System.Drawing.Size(170, 25);
+            this.btDetermineRootPath.TabIndex = 7;
+            this.btDetermineRootPath.Text = "Determine Root Path";
+            this.btDetermineRootPath.UseVisualStyleBackColor = true;
+            this.btDetermineRootPath.Click += new System.EventHandler(this.btDetermineRootPath_Click);
             // 
             // btAcceptFiles
             // 
+            this.btAcceptFiles.Enabled = false;
             this.btAcceptFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btAcceptFiles.Location = new System.Drawing.Point(668, 401);
             this.btAcceptFiles.Name = "btAcceptFiles";
@@ -142,14 +143,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btAcceptFiles);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.btDetermineRootPath);
+            this.Controls.Add(this.btRemoveFile);
+            this.Controls.Add(this.btSetPath);
+            this.Controls.Add(this.tbProjectPath);
+            this.Controls.Add(this.btOpenFolder);
+            this.Controls.Add(this.lbInputFiles);
+            this.Controls.Add(this.btAddSingleFile);
+            this.Controls.Add(this.rtbFileContent);
             this.Name = "InputTestForm";
             this.Text = "InputTestForm";
             this.ResumeLayout(false);
@@ -159,16 +160,16 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RichTextBox rtbFileContent;
+        private System.Windows.Forms.Button btAddSingleFile;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ListBox lbInputFiles;
+        private System.Windows.Forms.Button btOpenFolder;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox tbProjectPath;
+        private System.Windows.Forms.Button btSetPath;
+        private System.Windows.Forms.Button btRemoveFile;
+        private System.Windows.Forms.Button btDetermineRootPath;
         private System.Windows.Forms.Button btAcceptFiles;
     }
 }

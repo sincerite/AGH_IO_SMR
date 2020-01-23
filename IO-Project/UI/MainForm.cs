@@ -76,7 +76,7 @@ namespace IO_Project.UI
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    _inputFiles = form.InputFiles;
+                    _inputFiles = form.formController.InputFiles;
                 }
             }
             if (_inputFiles != null)

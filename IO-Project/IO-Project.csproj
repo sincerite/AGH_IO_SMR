@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="Hash\HashCommits.cs" />
     <Compile Include="Input\InputFile.cs" />
+    <Compile Include="Input\InputFormController.cs" />
     <Compile Include="Input\InputTestForm.cs">
       <SubType>Form</SubType>
     </Compile>
