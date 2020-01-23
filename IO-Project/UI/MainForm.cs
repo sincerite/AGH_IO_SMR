@@ -23,7 +23,8 @@ namespace IO_Project.UI
         private SourceSemanticAnalyzer _analyzer;
         private List<InputFile> _inputFiles;
         private HashCommits hashCommits;
-
+        private InputFile inputFile;
+        private string projectRoot;
         public MainForm()
         {
             InitializeComponent();
@@ -79,18 +80,21 @@ namespace IO_Project.UI
                 if (result == DialogResult.OK)
                 {
                     _inputFiles = form.formController.InputFiles;
+                    projectRoot= form.formController.rootPath;
+                    if (_inputFiles != null)
+                    {
+                        btAnalyze.Enabled = true;
+                        OnInputFileLoaded();
+                    }
                 }
             }
-            if (_inputFiles != null)
-            {
-                btAnalyze.Enabled = true;
-                OnInputFileLoaded();
-            }
+            
         }
 
         private void OnInputFileLoaded()
         {
-            string commit = HashCommits.ExecuteGitBashCommand("C:/Users/Acer/source/repos/AGH_IO_SMR");
+            
+            string commit = HashCommits.ExecuteGitBashCommand(projectRoot);
             string status;
             if (commit == null)
             {
