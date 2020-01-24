@@ -42,6 +42,9 @@
             // 
             // rtbFileContent
             // 
+            this.rtbFileContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbFileContent.Location = new System.Drawing.Point(12, 12);
             this.rtbFileContent.Name = "rtbFileContent";
             this.rtbFileContent.Size = new System.Drawing.Size(387, 426);
@@ -50,6 +53,7 @@
             // 
             // btAddSingleFile
             // 
+            this.btAddSingleFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btAddSingleFile.Location = new System.Drawing.Point(405, 282);
             this.btAddSingleFile.Name = "btAddSingleFile";
             this.btAddSingleFile.Size = new System.Drawing.Size(170, 25);
@@ -65,6 +69,8 @@
             // 
             // lbInputFiles
             // 
+            this.lbInputFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbInputFiles.FormattingEnabled = true;
             this.lbInputFiles.Location = new System.Drawing.Point(405, 77);
             this.lbInputFiles.Name = "lbInputFiles";
@@ -75,6 +81,7 @@
             // 
             // btOpenFolder
             // 
+            this.btOpenFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btOpenFolder.Location = new System.Drawing.Point(405, 38);
             this.btOpenFolder.Name = "btOpenFolder";
             this.btOpenFolder.Size = new System.Drawing.Size(110, 20);
@@ -90,6 +97,7 @@
             // 
             // tbProjectPath
             // 
+            this.tbProjectPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbProjectPath.Location = new System.Drawing.Point(405, 12);
             this.tbProjectPath.Name = "tbProjectPath";
             this.tbProjectPath.Size = new System.Drawing.Size(333, 20);
@@ -97,6 +105,7 @@
             // 
             // btSetPath
             // 
+            this.btSetPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btSetPath.Location = new System.Drawing.Point(744, 12);
             this.btSetPath.Name = "btSetPath";
             this.btSetPath.Size = new System.Drawing.Size(44, 20);
@@ -107,6 +116,7 @@
             // 
             // btRemoveFile
             // 
+            this.btRemoveFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btRemoveFile.Location = new System.Drawing.Point(704, 282);
             this.btRemoveFile.Name = "btRemoveFile";
             this.btRemoveFile.Size = new System.Drawing.Size(84, 25);
@@ -117,6 +127,7 @@
             // 
             // btDetermineRootPath
             // 
+            this.btDetermineRootPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btDetermineRootPath.Location = new System.Drawing.Point(405, 313);
             this.btDetermineRootPath.Name = "btDetermineRootPath";
             this.btDetermineRootPath.Size = new System.Drawing.Size(170, 25);
@@ -127,6 +138,7 @@
             // 
             // btAcceptFiles
             // 
+            this.btAcceptFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btAcceptFiles.Enabled = false;
             this.btAcceptFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btAcceptFiles.Location = new System.Drawing.Point(668, 401);
@@ -151,8 +163,9 @@
             this.Controls.Add(this.lbInputFiles);
             this.Controls.Add(this.btAddSingleFile);
             this.Controls.Add(this.rtbFileContent);
+            this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "InputTestForm";
-            this.Text = "InputTestForm";
+            this.Text = "Specify input files";
             this.ResumeLayout(false);
             this.PerformLayout();
 
