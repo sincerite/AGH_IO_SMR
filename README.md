@@ -20,16 +20,16 @@ IO Completed stories: 1, 2, 3, 5, 6, 8, 9, 10
 
 ----
 ### Intuitive input selection:
-[![Input](https://giant.gfycat.com/FrailClearAustrianpinscher.gif)](https://giant.gfycat.com/FrailClearAustrianpinscher.webm)
+[![Input](https://thumbs.gfycat.com/FrailClearAustrianpinscher-size_restricted.gif)](https://giant.gfycat.com/FrailClearAustrianpinscher.webm)
 =============
 
 ### Source relations layers toggling:
-[![Input](http://giant.gfycat.com/IllGoldenAiredaleterrier.gif)](http://giant.gfycat.com/IllGoldenAiredaleterrier.webm)
+[![Input](https://thumbs.gfycat.com/IllGoldenAiredaleterrier-size_restricted.gif)](http://giant.gfycat.com/IllGoldenAiredaleterrier.webm)
 =============
 
 ### Interactive graphs:
-[![Input](https://giant.gfycat.com/GleefulTidyEmperorpenguin.gif)](https://giant.gfycat.com/GleefulTidyEmperorpenguin.webm)
+[![Input](https://thumbs.gfycat.com/GleefulTidyEmperorpenguin-size_restricted.gif)](https://giant.gfycat.com/GleefulTidyEmperorpenguin.webm)
 =============
 
 ### Different layout methods:
-[![Input](https://giant.gfycat.com/DownrightJaggedChrysalis.gif)](https://giant.gfycat.com/DownrightJaggedChrysalis.webm)
+[![Input](https://thumbs.gfycat.com/DownrightJaggedChrysalis-size_restricted.gif)](https://giant.gfycat.com/DownrightJaggedChrysalis.webm)
